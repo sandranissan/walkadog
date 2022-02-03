@@ -4,6 +4,8 @@ const path = require('path')
 const mysql = require('mysql')
 
 
+
+
 const dbConnection = mysql.createConnection({
     host: "database",
     port: 3306,
@@ -13,11 +15,14 @@ const dbConnection = mysql.createConnection({
 })
 const app = express()
 
+
+app.use(express.static(__dirname + '/presentation-layer/public'))
+
 app.engine('hbs', expressHandlebars.engine({
 defaultLayout: 'main.hbs'
 }))
 
-app.set('views', path.join(__dirname, "views"))
+app.set('views', path.join(__dirname, "./presentation-layer/views"))
 
 app.get('/', function(request, response){
     response.render('start.hbs')

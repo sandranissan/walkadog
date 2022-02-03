@@ -11,4 +11,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "abc123"
       MYSQL_DATABASE: "webb"
+    ports:
+    - "3306:3306"
 
