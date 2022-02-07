@@ -39,6 +39,21 @@ app.get('/', function(request, response){
  })
 })
 
+app.get('/logIn', function (request, response) {
+
+    response.render('logIn.hbs')
+})
+
+app.get('/messeges', function (request, response) {
+
+    response.render('messeges.hbs')
+})
+
+app.get('/adverts', function (request, response) {
+
+    response.render('messeges.hbs')
+})
+
 
 app.listen(8080,function(){
     console.log("its up and running") 
