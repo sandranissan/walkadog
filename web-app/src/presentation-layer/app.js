@@ -34,6 +34,16 @@ app.get('/logIn', function (request, response) {
     response.render('logIn.hbs')
 })
 
+app.get('/signUp', function (request, response) {
+
+    response.render('signUp.hbs')
+})
+
+app.get('/adverts', function (request, response) {
+
+    response.render('adverts.hbs')
+})
+
 app.get('/messeges', function (request, response) {
 
     response.render('messeges.hbs')

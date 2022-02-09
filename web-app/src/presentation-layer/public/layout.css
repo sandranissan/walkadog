@@ -8,6 +8,7 @@
   }
 
 .textHeadLine {
+    padding-top: 100px;
     text-shadow: 4px 4px 0px #1ebbf000, 7px 7px 0px rgba(0, 0, 0, 0.404);
 
 }
@@ -37,6 +38,7 @@
   /* Navbar links on mouse-over */
   .navbar a:hover {
     background-color: rgba(190, 206, 211, 0.582);
+    
   }
   
   /* Current/active navbar link */
@@ -52,5 +54,109 @@
     }
   }
 
+a.buttonGetStarted{
+  display:inline-block;
+  padding:0.5em 3em;
+  border:0.16em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  box-sizing: border-box;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Roboto',sans-serif;
+  font-weight:400;
+  font-size: 30;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.15s;
+}
+a.buttonGetStarted:hover{
+  color:#DDDDDD;
+  border-color:#DDDDDD;
+  background-color: rgba(33, 68, 226, 0.849);
+}
 
-  
+a.buttonGetStarted:active{
+  color:#BBBBBB;
+  border-color:#BBBBBB;
+}
+
+@media all and (max-width:30em){
+  a.buttonGetStarted{
+    display:block;
+    margin:0.4em auto;
+  }
+}
+
+.col2{
+  padding-top: 40%;
+}
+
+body{
+  background:#eee;    
+ }
+ 
+p {
+     font-size: 14px;
+     color: #777;
+}
+ 
+ .adverts .image {
+     height: 250px;
+     overflow: hidden;
+     border-radius: 3px 0 0 3px;
+ }
+ 
+ .adverts .image img {
+     width: 100%;
+     height: auto;
+ }
+ 
+ .adverts .date {
+     top: -10px;
+     z-index: 99;
+     width: 65px;
+     right: -10px;
+     height: 65px;
+     padding: 10px;
+     position: absolute;
+     color:#FFFFFF;
+     font-weight:bold;
+     background: #5bc0de;
+     border-radius: 999px;
+ }
+ 
+ .adverts .adverts-details {
+     padding: 0 20px 0 0;
+ }
+ 
+ .adverts {
+     padding: 0;
+ }
+ 
+ .well {
+     border: 0;
+     padding: 20px;
+     min-height: 63px;
+     background: #fff;
+     box-shadow: none;
+     border-radius: 3px;
+     position: relative;
+     max-height: 100000px;
+     border-bottom: 2px solid #ccc;
+ }
+ 
+ .adverts .adverts-details h2 {
+     margin-bottom: 10px;
+     padding-bottom: 10px;
+     border-bottom: 1px solid #eee;
+ }
+ 
+ .adverts .date .adverts-number {
+     color: #fff;
+     display: block;
+     font-size: 24px;
+     text-align: center;
+ }
+ .contententAdverts{
+   padding-top: 10%;
+ }                    
