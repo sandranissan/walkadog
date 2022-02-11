@@ -3,6 +3,10 @@ const expressHandlebars = require('express-handlebars')
 const path = require('path')
 const db = require('../data-access-layer/db.js')
 
+const variousRouter = require('./routers/various-router')
+const accountRouter = require('./routers/account-router')
+const advertsRouter = require('./routers/adverts-router')
+
 const app = express()
 
 
@@ -17,36 +21,10 @@ app.set('views', path.join(__dirname, "./views"))
 
 
 
-app.get('/', function(request, response){
-    response.render('start.hbs')
+app.use('/', variousRouter)
+app.use('/logIn', accountRouter)
 
-
-})
-
-app.get('/logIn', function (request, response) {
-
-    response.render('logIn.hbs')
-})
-
-app.get('/signUp', function (request, response) {
-
-    response.render('signUp.hbs')
-})
-
-app.get('/adverts', function (request, response) {
-
-    response.render('adverts.hbs')
-})
-
-app.get('/messeges', function (request, response) {
-
-    response.render('messeges.hbs')
-})
-
-app.get('/adverts', function (request, response) {
-
-    response.render('messeges.hbs')
-})
+app.use('/adverts', advertsRouter )
 
 
 app.listen(8080,function(){
