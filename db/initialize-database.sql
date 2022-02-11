@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS adverts(
 
 CREATE TABLE IF NOT EXISTS photos(
     photoId INT AUTO_INCREMENT PRIMARY KEY,
-    nameoFile VARCHAR(100),
+    nameOfFile VARCHAR(100),
     advert INT,
     FOREIGN KEY (advert) REFERENCES adverts(advertId),
     photoDescription VARCHAR(100) 
