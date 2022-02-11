@@ -9,24 +9,18 @@ const app = express()
 app.use(express.static(__dirname + '/public'))
 
 app.engine('hbs', expressHandlebars.engine({
-defaultLayout: 'main.hbs'
+defaultLayout: 'main.hbs',
+layoutsDir: path.join(__dirname, "./layouts")
 }))
 
 app.set('views', path.join(__dirname, "./views"))
 
+
+
 app.get('/', function(request, response){
     response.render('start.hbs')
 
-    db.query("SELECT * FROM humans", function(error, humans){
-        if(error){
-            console.log(error)
 
-        }else{
-            console.log("Got humans:")
-            for(const human of humans)
-            console.log(human.name)
-        }
- })
 })
 
 app.get('/logIn', function (request, response) {
