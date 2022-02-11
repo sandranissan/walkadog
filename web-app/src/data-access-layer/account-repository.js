@@ -1,2 +1,2 @@
-const db = require('../data-access-layer/db.js')
+const db = require('./db.js')
 

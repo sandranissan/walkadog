@@ -21,3 +21,6 @@ CREATE TABLE IF NOT EXISTS users(
     userPassword VARCHAR(50)
 
 );
+
+INSERT INTO adverts (advertName, advertDescription, contact) VALUES ("Alice", "abc123", "bajs@hej");
+INSERT INTO adverts (advertName, advertDescription, contact) VALUES ("Gustaf", "jag vill ha glass", "glass@bajs");

@@ -13,4 +13,6 @@ router.get('/signUp', function (request, response) {
     response.render('signUp.hbs')
 })
 
+
+
 module.exports = router
