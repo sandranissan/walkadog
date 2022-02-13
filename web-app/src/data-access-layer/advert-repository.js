@@ -15,3 +15,19 @@ exports.getAllAdverts = function (callback) {
 
 }
 
+exports.createAdvert = function(advert, callback){
+
+    const query = `INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)`
+    const values = [advert.advertName, advert.advertDescription, advert.contact]
+
+    db.query(query, values, function(error, results){
+        if(error){
+			// TODO: Look for usernameUnique violation.
+			callback(['databaseError'], null)
+		}else{
+			callback([], results.insertId)
+		}
+
+    })
+
+}
