@@ -16,11 +16,11 @@ router.get('/signUp', function (request, response) {
 })
 
 router.post('/signUp', function(request, response){
-    console.log("postade en nu user request!")
+    console.log("postade en ny user request!")
     const newUser = {
-        name: request.params.username,
-        userEmail: request.params.email,
-        userPassword: request.params.password
+        userName: request.body.username,
+        userEmail: request.body.userEmail,
+        userPassword: request.body.userPassword
     }
     console.log(newUser)
     accountManager.createNewUser(newUser, function(errors, user){
