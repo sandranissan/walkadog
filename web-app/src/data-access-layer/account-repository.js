@@ -1,36 +1,37 @@
-const db = require('../data-access-layer/db.js')
-const { use } = require('../presentation-layer/routers/various-router.js')
+const db = require('./db.js')
 
 
-
-
-
-module.exports = {
-
-    createNewUser(newUser, callback){
-
-        const query = "INSERT INTO users (userName, userEmail, userPassword) VALUES(?,?,?)"
-        const values = [newUser.name, newUser.email, newUser.password] 
-
-        db.query(query,values, function(errors,user){
-            if(errors){
-                console.log(errors)
-            }else{
-                console.log("Lyckades lägga in ny användare!")
-                callback(errors,user)
-            }
-        })
-
-    },
-
+exports.getAllAccounts = function(callback){
+	
+	const query = `SELECT * FROM users ORDER BY userName`
+	const values = []
+	
+	db.query(query, values, function(error, users){
+		if(error){
+			callback(['databaseError'], null)
+		}else{
+			callback([], users)
+		}
+	})
+	
 }
 
 
+exports.createAccount = function(newUser, callback){
+	
+	const query = `INSERT INTO users (userName, userEmail, userPassword) VALUES (?, ?, ?)`
+	const values = [newUser.userName, newUser.userEmail , newUser.userPassword]
 
-
-
-//router,bus, data
-
-
-
-
+    console.log("repo")
+	
+	db.query(query, values, function(error, newUser){
+		if(error){
+			// TODO: Look for usernameUnique violation.
+			callback(['databaseError'], null)
+		}else{
+			callback([], newUser)
+		}
+        console.log("db")
+	})
+	
+}

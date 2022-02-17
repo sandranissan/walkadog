@@ -5,8 +5,7 @@
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class=" col-md-6 col-lg-5 d-none d-md-block">
-                            <img src="/pictures/loginDog2.jpg" 
-                                alt="login form" class="img-fluid"/>
+                            <img src="/pictures/loginDog2.jpg" alt="login form" class="img-fluid" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
@@ -33,7 +32,8 @@
                                     </div>
 
                                     <div class="pt-1 mb-4">
-                                        <a href="/adverts" class="btn btn-dark btn-lg btn-block" role="button">Log in</a>
+                                        <a href="/adverts" class="btn btn-dark btn-lg btn-block" role="button">Log
+                                            in</a>
                                     </div>
 
                                     <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"
@@ -48,5 +48,29 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="">
+        <h1>All accounts</h1>
+        {{#if errors.length}}
+        <p>Oh no, something went wrong:</p>
+        <ul>
+            {{#each errors}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{else}}
+
+        {{#if users.length}}
+        <ul>
+            {{#each users}}
+            <li><a href="/logIn/{{userName}}">{{userName}}</a></li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <p>No accounts exist yet.</p>
+        {{/if}}
+
+        {{/if}}
     </div>
 </section>

@@ -12,6 +12,10 @@ const app = express()
 
 app.use(express.static(__dirname + '/public'))
 
+app.use(express.urlencoded({
+    extended: false
+}))
+
 app.engine('hbs', expressHandlebars.engine({
 defaultLayout: 'main.hbs',
 layoutsDir: path.join(__dirname, "./layouts")
