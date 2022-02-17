@@ -37,9 +37,11 @@ router.post('/signUp', function (request, response) {
         }
         else {
             console.log(user)
+			response.redirect("/adverts")
 
         }
     })
+
 
 })
 
