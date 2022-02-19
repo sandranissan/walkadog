@@ -15,16 +15,18 @@ exports.getAllAdverts = function (callback) {
 
 }
 
-exports.createAdvert = function(advert, callback){
+exports.createAdvert = function(newAdvert, callback){
 
     const query = `INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)`
-    const values = [advert.advertName, advert.advertDescription, advert.contact]
+    const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.contact]
+
+    console.log(values)
 
     db.query(query, values, function(error, results){
         if(error){
 			callback(['databaseError'], null)
 		}else{
-			callback([], results.insertId)
+			callback([], newAdvert)
 		}
 
     })

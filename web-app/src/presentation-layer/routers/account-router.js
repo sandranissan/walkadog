@@ -1,8 +1,8 @@
-
 const express = require('express')
 const accountManager = require('../../business-logic-layer/account-manager')
-
 const router = express.Router()
+
+router.use(express.urlencoded({ extended: false }))
 
 
 router.get('/', function (request, response) {
@@ -22,26 +22,24 @@ router.get('/signUp', function (request, response) {
 })
 
 router.post('/signUp', function (request, response) {
-    console.log("postade en ny user request!")
-    console.log(request.body)
+ 
     const newUser = {
         userName: request.body.username,
         userEmail: request.body.userEmail,
         userPassword: request.body.userPassword
     }
-    console.log(newUser)
     accountManager.createAccount(newUser, function (errors, user) {
+        //console.log(user)
 
         if (0 < errors.length) {
-            console.log(errors)
+           // console.log(errors)
         }
         else {
-            console.log(user)
-			response.redirect("/adverts")
+           // console.log(user)
+            response.redirect("/adverts")
 
         }
     })
-
 
 })
 

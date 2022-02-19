@@ -7,17 +7,17 @@ exports.getErrorsNewAccount = function (newUser, callback) {
 
     const errors = []
 
-    console.log("account validator!")
-    console.log(newUser)
+   // console.log("account validator!")
+   // console.log(newUser)
     // Validate username.
     if (!newUser.hasOwnProperty("username")) {
         errors.push("usernameMissing")
-        console.log("vali")
+       // console.log("vali")
     }
     if (newUser.userName.length < MIN_USERNAME_LENGTH) {
         errors.push("usernameTooShort")
-        console.log("errors")
-        console.log("dö")
+      //  console.log("errors")
+      //  console.log("dö")
     }
     if (MAX_USERNAME_LENGTH < newUser.userName.length) {
         errors.push("usernameTooLong")
@@ -37,5 +37,5 @@ exports.getErrorsNewAccount = function (newUser, callback) {
 
 
     })
-    console.log("skickade till repo")
+    //console.log("skickade till repo")
 }

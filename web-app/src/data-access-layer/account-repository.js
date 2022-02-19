@@ -1,6 +1,5 @@
 const db = require('./db.js')
 
-
 exports.getAllAccounts = function(callback){
 	
 	const query = `SELECT * FROM users ORDER BY userName`
@@ -16,13 +15,12 @@ exports.getAllAccounts = function(callback){
 	
 }
 
-
 exports.createAccount = function(newUser, callback){
 	
 	const query = `INSERT INTO users (userName, userEmail, userPassword) VALUES (?, ?, ?)`
 	const values = [newUser.userName, newUser.userEmail , newUser.userPassword]
 
-    console.log("repo")
+   // console.log("repo")
 	
 	db.query(query, values, function(error, newUser){
 		if(error){
@@ -31,7 +29,7 @@ exports.createAccount = function(newUser, callback){
 		}else{
 			callback([], newUser)
 		}
-        console.log("db")
+      //  console.log("db")
 	})
 	
 }

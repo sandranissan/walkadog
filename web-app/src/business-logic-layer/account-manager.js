@@ -7,17 +7,6 @@ exports.getAllAccounts = function(callback){
 }
 
 exports.createAccount = function(newUser, callback){
-
-    console.log("kom fram till account manager")
-	
-	// Validate the account.
 	accountValidator.getErrorsNewAccount(newUser, callback)
 
-    
-
-	console.log("test!!")
-	
-
-    console.log("Skickade till data-access")
-	
 }

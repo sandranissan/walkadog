@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, "./views"))
 app.use('/', variousRouter)
 app.use('/logIn', accountRouter)
 
-app.use('/adverts', advertsRouter )
+app.use('/adverts', advertsRouter)
 
 
 app.listen(8080,function(){
