@@ -1,6 +1,5 @@
 const express = require('express')
 const advertManager = require('../../business-logic-layer/advert-manager')
-const photoManager = require('../../business-logic-layer/photo-manager')
 const router = express.Router()
 
 
@@ -40,7 +39,7 @@ router.post('/createAdvert', function (request, response) {
     const newAdvert = {
         advertName: request.body.advertName,
         advertDescription: request.body.advertDescription,
-        advertContact: request.body.contact,
+        advertContact: request.body.advertContact,
         photoDescription: request.body.photoDescription,
         photoPath: path
     }
