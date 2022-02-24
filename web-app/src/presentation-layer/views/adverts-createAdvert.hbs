@@ -7,7 +7,7 @@
 
                 <h1>Create Advert</h1>
 
-                <form action="/adverts/createAdvert" method="POST">
+                <form action="/adverts/createAdvert" method="POST" enctype="multipart/form-data">
 
                     <div class="form-group">
                         <label for="title">Title <span class="require">*</span></label>
@@ -23,6 +23,19 @@
                         <label for="contact">Contact <span class="require">*</span></label>
                         <input type="text" class="form-control" name="contact" />
                     </div>
+                    <br>
+
+                    <div>
+                        <input type="file" name="photo" > 
+                        <input type="submit" value="Upload" >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="photoDescription"> Picture description</label>
+                        <textarea rows="5" class="form-control" name="photoDescription"></textarea>
+                    </div>
+
 
                     <div class="form-group">
                         <p><span class="require">*</span> - required fields</p>

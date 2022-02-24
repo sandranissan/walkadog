@@ -2,13 +2,16 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
 const db = require('../data-access-layer/db.js')
+const fileUpload = require('express-fileupload')
+
 
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
 const advertsRouter = require('./routers/adverts-router')
 
 const app = express()
-
+app.use(express.urlencoded({ extended: false }))
+app.use(fileUpload());
 
 app.use(express.static(__dirname + '/public'))
 
