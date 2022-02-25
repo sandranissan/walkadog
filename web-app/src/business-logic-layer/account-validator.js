@@ -39,3 +39,5 @@ exports.getErrorsNewAccount = function (newUser, callback) {
     })
     //console.log("skickade till repo")
 }
+
+//validate username password

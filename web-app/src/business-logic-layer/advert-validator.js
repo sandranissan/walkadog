@@ -37,3 +37,5 @@ exports.getErrorsNewAdvert = function (newAdvert, callback) {
 
     })
 }
+
+//göra fler 

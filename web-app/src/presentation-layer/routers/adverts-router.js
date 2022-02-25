@@ -26,10 +26,10 @@ router.post('/createAdvert', function (request, response) {
     const newAdvert = {
         advertName: request.body.advertName,
         advertDescription: request.body.advertDescription,
-        advertContact: request.body.contact
+        advertContact: request.body.advertContact
     }
    // console.log(newAdvert)
-    advertManager.createAdvert(newAdvert, function (errors, newAdvert) {   // newAdvert' is declared but its value is never read. VARFÖR
+    advertManager.createAdvert(newAdvert, function (errors, advert) {   // newAdvert' is declared but its value is never read. VARFÖR
        // console.log(newAdvert) 
 
         if (0 < errors.length) {
