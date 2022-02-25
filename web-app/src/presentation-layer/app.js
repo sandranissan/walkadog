@@ -2,10 +2,14 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
 const db = require('../data-access-layer/db.js')
+<<<<<<< HEAD
 const session = require("express-session")
 const redis = require("redis")
 const connectRedis = require("connect-redis")
 
+=======
+const fileUpload = require('express-fileupload')
+>>>>>>> f96438b880223aa7cef5e709f15e2b35d4898127
 
 
 const variousRouter = require('./routers/various-router')
@@ -16,6 +20,7 @@ const advertsRouter = require('./routers/adverts-router')
 
 
 const app = express()
+<<<<<<< HEAD
 
 const RedisStore = connectRedis(session)
 
@@ -41,6 +46,10 @@ app.use(session({
 
 
 
+=======
+app.use(express.urlencoded({ extended: false }))
+app.use(fileUpload());
+>>>>>>> f96438b880223aa7cef5e709f15e2b35d4898127
 
 app.use(express.static(__dirname + '/public'))
 
