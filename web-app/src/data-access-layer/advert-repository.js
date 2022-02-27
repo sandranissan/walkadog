@@ -21,10 +21,6 @@ exports.getAllAdverts = function (callback) {
 exports.createAdvert = function(newAdvert, callback){
 
     const query = `INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)`
-<<<<<<< HEAD
-=======
-    const photoQuery = 'INSERT INTO photos (nameOfFile, advert, photoDescription) VALUE (?,?,?)'
->>>>>>> f96438b880223aa7cef5e709f15e2b35d4898127
     const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.advertContact]
 
     //console.log(values)

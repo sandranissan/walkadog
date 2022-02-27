@@ -2,60 +2,56 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
 const db = require('../data-access-layer/db.js')
-<<<<<<< HEAD
-const session = require("express-session")
-const redis = require("redis")
-const connectRedis = require("connect-redis")
-
-=======
 const fileUpload = require('express-fileupload')
->>>>>>> f96438b880223aa7cef5e709f15e2b35d4898127
-
-
 const variousRouter = require('./routers/various-router')
 const accountRouter = require('./routers/account-router')
 const advertsRouter = require('./routers/adverts-router')
-
+const session = require('express-session')
+const redis = require('redis')
+const connectRedis = require('connect-redis')
+const RedisStore = connectRedis(session)
 
 
 
 const app = express()
-<<<<<<< HEAD
 
-const RedisStore = connectRedis(session)
-
-// 1 configure our redis
 const redisClient = redis.createClient({
+    host: 'session-redis',
     port: 6379,
-    host: 'localhost'
+    ttl: 60*60*10
 })
 
+redisClient.on('error', function (err) {
+    console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+    console.log('Connected to redis successfully');
+});
 
 app.use(session({
+    secret: 'sandraAljona',
     store: new RedisStore({client: redisClient}),
-    secret: "sandraAljona",
-    saveUninitialized: false,
     resave: false,
+    saveUninitialized: false,
     cookie: {
-        secure: false, 
-        httpOnly: true,
-        maxAge: 1000 * 60 * 30 // session max age in milliseconds (3 min)
+        secure: false, //if true only transmitt cookie over https
+        httpOnly: false,
+        maxAge: 1000 * 60 * 10 //session max age in milliseconds
     }
 }))
-
-
-
-
-=======
-app.use(express.urlencoded({ extended: false }))
+app.use(function(request,response, next){
+    response.locals.isLoggedIn = request.session.isLoggedIn
+    response.locals.isAdmin = request.session.isAdmin
+    response.locals.userId = request.session.userId
+    next()
+})
 app.use(fileUpload());
->>>>>>> f96438b880223aa7cef5e709f15e2b35d4898127
-
 app.use(express.static(__dirname + '/public'))
 
 app.use(express.urlencoded({
     extended: false
 }))
+
 
 app.engine('hbs', expressHandlebars.engine({
 defaultLayout: 'main.hbs',

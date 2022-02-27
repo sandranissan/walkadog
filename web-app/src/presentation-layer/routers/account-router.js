@@ -1,77 +1,47 @@
 const express = require('express')
-//const bcrypt = require("bcrypt")
+const session = require('express-session')
 const accountManager = require('../../business-logic-layer/account-manager')
-
-
-//const saltRounds= 10
-//const session = require("express-session");
-
-
 const router = express.Router()
 router.use(express.urlencoded({ extended: false }))
-
-// router.use(
-//     session({
-//       key: "userId",
-//       secret: "sandraAljona",
-//       resave: false,
-//       saveUninitialized: false,
-//       cookie: {
-//         expires: 60 * 60 * 24,
-//       },
-//     })
-//   );
 
 
 
 router.get('/', function (request, response) {
-    accountManager.getAllAccounts(function (errors, users) {
-        const model = {
-            errors: errors,
-            users: users
-        }
-        response.render("logIn.hbs", model)
-    })
-   
-        
+    response.render("logIn.hbs")
+    
     })
 
+router.post('/', function(request, response){
 
-router.post('/', function(request,response){
+    const logInKnownUser = {
+        userName: request.body.username,
+        userPassword: request.body.userPassword
+    }
 
-    const userName= request.body.username
-    const userPassword = request.body.userPassword
+    accountManager.logInCredentials(logInKnownUser, function(errors, knownUser){
+        console.log(knownUser)
 
-    accountManager.logInAccountByUsername(userName,userPassword, function(errors, user){
+        if(errors.length > 0){
+            response.render("start.hbs")
+            request.session.isLoggedIn = false
+        } else {
+            request.session.userId = knownUser.userId
+            request.session.isLoggedIn = true
+            
+            if(knownUser.isAdmin == 1) {
+                request.session.isAdmin = true
 
-        if(errors){
-            response.send({ errors: errors });
+            }else {
+                request.session.isAdmin = false
+            }
+
+            console.log(request.session)
+            console.log("log in funkade")
+            response.redirect("/adverts")
         }
-
-        if(user.length >0){
-            //bcrypt.compare(userPassword, user[0].userPassword, (error, response) => {
-                if (response){
-                    request.session.knownUser = user;
-                    console.log(request.session.knownUser);
-    
-                    response.redirect("/adverts")
-                }else{
-                    //validate
-                    console.log( "Wrong username/password combination!");
-    
-                }
-    
-           // });
-
-        }else {
-            console.log( "User doesn't exist" );
-
-        }
-        
     })
-    
+
 })
-
 router.get('/signUp', function (request, response) {
 
     response.render('signUp.hbs')
@@ -85,22 +55,26 @@ router.post('/signUp', function (request, response) {
         userPassword: request.body.userPassword
     }
 
-
         accountManager.createAccount(newUser, function (errors, user) {
-            //console.log(user)
-    
-            if (0 < errors.length) {
-               // console.log(errors)
+            const model = {
+                errors: errors,
+                user: user
             }
-            else {
-               // console.log(user)
-                response.redirect("/adverts")
-    
-            }
+
         })
 
 })
 
+router.get('/accountProfile', function (request, response) {
+
+    response.render('accountProfile.hbs')
+})
+
+router.post('/accountProfile', function(request, response){
+    request.session.destroy()
+    console.log("logga ut funkade")
+    response.redirect('/')
+})
 module.exports = router
 
 // (rouyer - presentioson) - bhussinsn logic - data access 

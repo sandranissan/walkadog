@@ -14,7 +14,9 @@ services:
     ports:
     - "3306:3306"
 
-  redis:
-    image: redis
-
+  session-redis:
+    build: "./session-redis"
+    ports:
+      - "6379:6379"
+  
 

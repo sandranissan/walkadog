@@ -1,5 +1,7 @@
 const db = require('./db.js')
 
+
+
 exports.getAllAccounts = function(callback){
 	
 	const query = `SELECT * FROM users ORDER BY userName`
@@ -15,18 +17,23 @@ exports.getAllAccounts = function(callback){
 	
 }
 
-exports.logInAccountByUsername = function(user1, callback){
+exports.logInCredentials = function(knownUser, callback){
 
-	const query = `SELECT * FROM users WHERE userName = ? LIMIT 1`
-	const value = [user1.userName]
+	const query = `SELECT * FROM users WHERE userName = ? AND userPassword = ?`
+	const values = [knownUser.userName, knownUser.userPassword]
 
-	db.query(query,value, function(error, user1){
-		if (error){
-			callback(['databaseError'], null)
-		}else {
-			callback([[], user1[0]])
+	db.query(query,values, function(error, knownUser){
+		userError = []
+		if(knownUser.length == 0 ){
+			userError.push("User not found.")
 		}
-
+		if(error || userError.length > 0){
+			console.log(error, "error i account-repository.js")
+			callback(userError, [])
+		} else {
+			callback([], knownUser[0])
+		}
+			
 	})
 }
 

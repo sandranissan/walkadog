@@ -39,22 +39,11 @@ router.post('/createAdvert', function (request, response) {
     const newAdvert = {
         advertName: request.body.advertName,
         advertDescription: request.body.advertDescription,
-<<<<<<< HEAD
         advertContact: request.body.advertContact
     }
    // console.log(newAdvert)
     advertManager.createAdvert(newAdvert, function (errors, advert) {   // newAdvert' is declared but its value is never read. VARFÖR
        // console.log(newAdvert) 
-=======
-        advertContact: request.body.advertContact,
-        photoDescription: request.body.photoDescription,
-        photoPath: path
-    }
-
-
-
-    advertManager.createAdvert(newAdvert, function (errors, newAdvert) {
->>>>>>> f96438b880223aa7cef5e709f15e2b35d4898127
 
         if (0 < errors.length) {
             response.render("adverts-createAdvert.hbs")

@@ -7,17 +7,11 @@ exports.getErrorsNewAccount = function (newUser, callback) {
 
     const errors = []
 
-   // console.log("account validator!")
-   // console.log(newUser)
-    // Validate username.
     if (!newUser.hasOwnProperty("username")) {
         errors.push("usernameMissing")
-       // console.log("vali")
     }
     if (newUser.userName.length < MIN_USERNAME_LENGTH) {
         errors.push("usernameTooShort")
-      //  console.log("errors")
-      //  console.log("dö")
     }
     if (MAX_USERNAME_LENGTH < newUser.userName.length) {
         errors.push("usernameTooLong")
@@ -28,16 +22,22 @@ exports.getErrorsNewAccount = function (newUser, callback) {
     accountRepository.createAccount(newUser, function(errors, newUser){
 
         if(errors.length > 0) {
-
         }
         else {
-            callback(errors, newUser)
-
+            callback([], newUser)
         }
-
-
     })
-    //console.log("skickade till repo")
 }
 
-//validate username password
+exports.checklogInCredentials = function(knownUser, callback){
+
+    accountRepository.logInCredentials(knownUser, function(errors, knownUser){
+        if(errors.length > 0){
+            console.error(errors)
+            console.log("error i account-validator")
+            callback(errors, [])
+        } else {
+            callback([], knownUser)
+        }
+    })
+}
