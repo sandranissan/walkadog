@@ -43,6 +43,7 @@ app.use(function(request,response, next){
     response.locals.isLoggedIn = request.session.isLoggedIn
     response.locals.isAdmin = request.session.isAdmin
     response.locals.userId = request.session.userId
+    response.locals.userName = request.session.userName
     next()
 })
 app.use(fileUpload());

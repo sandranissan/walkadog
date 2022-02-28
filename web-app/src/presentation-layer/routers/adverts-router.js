@@ -56,6 +56,10 @@ router.post('/createAdvert', function (request, response) {
     })
 })
 
+router.get('/specificAdvert', function(request, response){
+    response.render('specificAdvert.hbs')
+})
+
 module.exports = router
 
 

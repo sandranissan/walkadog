@@ -26,6 +26,7 @@ router.post('/', function(request, response){
             request.session.isLoggedIn = false
         } else {
             request.session.userId = knownUser.userId
+            request.session.userName = knownUser.userName
             request.session.isLoggedIn = true
             
             if(knownUser.isAdmin == 1) {
@@ -71,6 +72,7 @@ router.get('/accountProfile', function (request, response) {
 })
 
 router.post('/accountProfile', function(request, response){
+    console.log(request.session)
     request.session.destroy()
     console.log("logga ut funkade")
     response.redirect('/')
