@@ -1,10 +1,12 @@
 const express = require('express')
 
-const router = express.Router()
+module.exports = function createVarious_router() {
 
-router.get('/', function(request, response){
-	response.render('start.hbs')
-})
+	const router = express.Router()
 
+	router.get('/', function (request, response) {
+		response.render('start.hbs')
+	})
 
-module.exports = router
+	return router
+}

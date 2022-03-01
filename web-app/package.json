@@ -1,15 +1,16 @@
 {
   "name": "webb",
   "version": "1.0.0",
-  "main": "src/app.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "nodemon src/presentation-layer/app.js",
+    "start": "nodemon src/presentation-layer/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "awilix": "^6.1.0",
     "bcrypt": "^5.0.1",
     "bulma": "^0.9.3",
     "connect-redis": "^6.1.1",

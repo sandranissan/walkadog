@@ -1,11 +1,17 @@
-const advertRepository = require('../data-access-layer/advert-repository')
-const advertValidator = require('./advert-validator')
 
 
-exports.getAllAdverts = function(callback){
-	advertRepository.getAllAdverts(callback)
+module.exports = function createAdvert_router({ advertRepository, advertValidator }) {
+
+	return {
+
+		getAllAdverts(callback){
+			advertRepository.getAllAdverts(callback)
+		},
+
+		createAdvert(newAdvert, callback){
+			advertValidator.getErrorsNewAdvert(newAdvert, callback)
+		}
+
+	}
 }
 
-exports.createAdvert = function(newAdvert, callback){
-	advertValidator.getErrorsNewAdvert(newAdvert, callback)
-}
