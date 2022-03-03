@@ -1,4 +1,5 @@
 const express = require('express')
+const staticPath = require("path").resolve(__dirname, '..')
 
 
 module.exports = function createAdvert_router({ advertManager }) {
@@ -24,7 +25,8 @@ module.exports = function createAdvert_router({ advertManager }) {
         const photoObject = request.files.photo
         const photoName = photoObject.name
 
-        const path = `/web-app/src/static/uploads/${photoName}`
+        const path = `${staticPath}/public/uploads/${photoName}`
+        
 
         console.log(__dirname)
 
@@ -39,7 +41,9 @@ module.exports = function createAdvert_router({ advertManager }) {
         const newAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,
-            advertContact: request.body.advertContact
+            advertContact: request.body.advertContact,
+            photoDescription : request.body.photoDescription,
+            photoPath : photoName
         }
         // console.log(newAdvert)
         advertManager.createAdvert(newAdvert, function (errors, advert) {   // newAdvert' is declared but its value is never read. VARFÖR
@@ -49,6 +53,7 @@ module.exports = function createAdvert_router({ advertManager }) {
                 response.render("adverts-createAdvert.hbs")
             }
             else {
+                
                 //  photoManager.uploadPhoto(newPhoto)
 
             }

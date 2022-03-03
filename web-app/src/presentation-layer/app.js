@@ -1,7 +1,6 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
-const db = require('../data-access-layer/db.js')
 const fileUpload = require('express-fileupload')
 const session = require('express-session')
 const redis = require('redis')
