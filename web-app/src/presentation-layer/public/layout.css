@@ -206,4 +206,16 @@ p {
    padding-top: 20%;
  }
 
- 
+ .profilename {
+   font-weight: bold;
+   text-transform:uppercase;
+   text-decoration: underline;
+  
+ }
+
+ .advertName{
+   text-decoration: underline;
+   font-weight: bold;
+   font-size:xx-large
+   
+   }

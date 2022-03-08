@@ -1,47 +1,55 @@
-const db = require('./db.js')
 
-exports.getAllAdverts = function (callback) {
+module.exports = function createAdvert_repository() {
+    const db = require('./db.js')
 
-    const query = `SELECT * FROM adverts ORDER BY advertId DESC`
-    const values = []
+    return {
+        getAllAdverts(callback) {
 
-    db.query(query, values, function (error, adverts) {
-        if (error) {
-            callback(['databaseError'], null)
-        } else {
-            callback([], adverts)
-        }
-    })
+            const query = `SELECT * FROM adverts  JOIN photos ON photos.advert = adverts.advertId ORDER BY adverts.advertId DESC`
+            const values = []
 
-}
-
-exports.createAdvert = function(newAdvert, callback){
-
-    const query = `INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)`
-    const photoQuery = 'INSERT INTO photos (nameOfFile, advert, photoDescription) VALUE (?,?,?)'
-    const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.advertContact]
-
-    //console.log(values)
-
-    db.query(query, values, function(error, results){
-        if(error){
-            console.log("error i advert")
-			callback(['databaseError'], null)
-		}else{
-            const photoValues = [newAdvert.photoPath, results.insertId, newAdvert.photoDescription]
-            db.query(photoQuery, photoValues, function(photoError, photoResult){
-                if(photoError){
-                    console.log(photoError)
+            db.query(query, values, function (error, adverts) {
+                if (error) {
                     callback(['databaseError'], null)
-
-                }else{
-                    console.log("lade in foto")
+                } else {
+                    callback([], adverts)
                 }
             })
 
-			callback([], results)
-		}
+        },
 
-    })
+        createAdvert(newAdvert, callback) {
+
+            const query = `INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)`
+            const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.advertContact]
+            const photoQuery = 'INSERT INTO photos (nameOfFile, advert, photoDescription) VALUES(?,?,?) '
+            //console.log(values)
+
+            db.query(query, values, function (error, savedAdvert) {
+                if (error) {
+                    console.log("error i advert")
+                    callback(['databaseError'], null)
+                } else {
+                    console.log(newAdvert)
+                    const photoValues = [newAdvert.photoPath, savedAdvert.insertId, newAdvert.photoDescription]
+                    db.query( photoQuery, photoValues, function (photoError, photoResult) {
+                        if (photoError) {
+                            console.log(photoError)
+                            callback(['databaseError'], null)
+
+                        } else {
+
+                            console.log("lade in foto")
+                            callback([], photoResult)
+                        }
+                    })
+
+                    
+                }
+                console.log("db2")
+            })
+        }
+
+    }
 
 }

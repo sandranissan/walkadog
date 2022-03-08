@@ -1,41 +1,50 @@
-const accountRepository = require('../data-access-layer/account-repository')
+
 
 const MIN_USERNAME_LENGTH = 3
 const MAX_USERNAME_LENGTH = 10
 
-exports.getErrorsNewAccount = function (newUser, callback) {
+module.exports = function createAdvert_router({ accountRepository }) {
 
-    const errors = []
+    return {
+        getErrorsNewAccount(newUser, callback) {
 
-   // console.log("account validator!")
-   // console.log(newUser)
-    // Validate username.
-    if (!newUser.hasOwnProperty("username")) {
-        errors.push("usernameMissing")
-       // console.log("vali")
-    }
-    if (newUser.userName.length < MIN_USERNAME_LENGTH) {
-        errors.push("usernameTooShort")
-      //  console.log("errors")
-      //  console.log("dö")
-    }
-    if (MAX_USERNAME_LENGTH < newUser.userName.length) {
-        errors.push("usernameTooLong")
-    }
-    if(errors.length > 0){
-        callback( errors, [])
-    }
-    accountRepository.createAccount(newUser, function(errors, newUser){
+            const errors = []
+        
+            if (!newUser.hasOwnProperty("username")) {
+                errors.push("usernameMissing")
+            }
+            if (newUser.userName.length < MIN_USERNAME_LENGTH) {
+                errors.push("usernameTooShort")
+            }
+            if (MAX_USERNAME_LENGTH < newUser.userName.length) {
+                errors.push("usernameTooLong")
+            }
+            if(errors.length > 0){
+                callback( errors, [])
+            }
 
-        if(errors.length > 0) {
+            accountRepository.createAccount(newUser, function(errors, newUser){
+        
+                if(errors.length > 0) {
+                }
+                else {
+                    callback([], newUser)
+                }
+            })
+        },
 
+        checklogInCredentials(knownUser, callback){
+
+            accountRepository.logInCredentials(knownUser, function(errors, knownUser){
+                if(errors.length > 0){
+                    console.error(errors)
+                    console.log("error i account-validator")
+                    callback(errors, [])
+                } else {
+                    callback([], knownUser)
+                }
+            })
         }
-        else {
-            callback(errors, newUser)
 
-        }
-
-
-    })
-    //console.log("skickade till repo")
+    }
 }
