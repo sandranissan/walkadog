@@ -1,4 +1,3 @@
-
 module.exports = function createAdvert_repository() {
     const db = require('./db.js')
 
@@ -15,7 +14,6 @@ module.exports = function createAdvert_repository() {
                     callback([], adverts)
                 }
             })
-
         },
 
         createAdvert(newAdvert, callback) {
@@ -42,14 +40,9 @@ module.exports = function createAdvert_repository() {
                             console.log("lade in foto")
                             callback([], photoResult)
                         }
-                    })
-
-                    
+                    })       
                 }
-                console.log("db2")
             })
         }
-
     }
-
 }
