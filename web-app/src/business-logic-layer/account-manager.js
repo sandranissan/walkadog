@@ -1,6 +1,6 @@
 
 
-module.exports = function createAdvert_router({ accountRepository, accountValidator }) {
+module.exports = function ({ accountRepository, accountValidator }) {
 
 	return {
 		getAllAccounts(callback){
@@ -11,8 +11,9 @@ module.exports = function createAdvert_router({ accountRepository, accountValida
 			accountValidator.getErrorsNewAccount(newUser, callback)
 		
 		},
-		logInCredentials(knownUser, callback){
-			accountRepository.logInCredentials(knownUser, callback)
+		logInCredential(knownUser, callback){
+			accountRepository.logInCredential(knownUser, callback)
+			console.log("account manager fuuuuuckar")
 		}
 
 	}

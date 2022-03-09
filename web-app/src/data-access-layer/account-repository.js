@@ -1,5 +1,5 @@
 
-module.exports = function createAdvert_repository() {
+module.exports = function createAccount_repository() {
 	const db = require('./db.js')
 
 	return {

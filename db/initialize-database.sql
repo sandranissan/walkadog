@@ -28,3 +28,5 @@ INSERT INTO adverts (advertName, advertDescription, contact) VALUES ("Gustaf", "
 INSERT INTO users (userName, userEmail, userPassword, isAdmin) VALUES ("aljona", "aljona@aljona", "aljona",1);
 INSERT INTO users (userName, userEmail, userPassword, isAdmin) VALUES ("sandra", "sandra@sandra", "sandra",1);
 
+INSERT INTO users (userName, userEmail, userPassword, isAdmin) VALUES ("skitSida", "sandra@sandra", "skit",1);
+

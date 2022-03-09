@@ -1,7 +1,8 @@
 const express = require('express')
+const staticPath = require("path").resolve(__dirname, '..')
 
 
-module.exports = function createAdvert_router({ accountManager }) {
+module.exports = function createAccount_router({ accountManager }) {
 
     const router = express.Router()
 
@@ -16,7 +17,7 @@ module.exports = function createAdvert_router({ accountManager }) {
             userPassword: request.body.userPassword
         }
 
-        accountManager.logInCredentials(logInKnownUser, function (errors, knownUser) {
+        accountManager.logInCredential(logInKnownUser, function (errors, knownUser) {
             console.log(knownUser)
 
             if (errors.length > 0) {
