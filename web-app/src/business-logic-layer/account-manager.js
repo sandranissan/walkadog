@@ -1,5 +1,3 @@
-
-
 module.exports = function ({ accountRepository, accountValidator, accountRepositoryPostgres  }) {
 
 	return {
