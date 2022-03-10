@@ -1,10 +1,50 @@
+const { adverts } = require('./db.js')
 const db = require('./db.js')
+const { photos } = require('./sequelize-model.js')
+
+module.exports = function createPostgresAdvertRepository(){
 
 return {
 
     getAllAdverts(callback){
-
+        db.adverts.findAll({
+            order: [{
+                model: photos,
+                required: false
+            }]
+        })
+        .then(allAdverts, () => {
+            callback([], allAdverts)
+        }).catch(error, () => {
+            callback(['databaseError'], null)
+        })
     },
+
+
+
+
+   /* getAllAdverts(callback){  // funkar ovan samma som denna ??
+        db.adverts.findAll({
+            raw: true,
+            attributes: [
+                "photos.nameOfFile",
+                "advertName",
+                "advertDescription",
+                "contact"
+            ],
+            include: [{
+                model: db.photos,
+                required: false
+            }]
+        })
+        .then(allAdverts, () => {
+            callback([], allAdverts)
+        }).catch(error, () => {
+            callback(['databaseError'], null)
+        })
+    }, */
+
+
 
     createAdvert(newAdvert, callback){
         const seqCreate = db.newAdvert.create({
@@ -25,5 +65,6 @@ return {
             callback([], newAdvert)
         }
     }
+}
 }
 

@@ -1,10 +1,10 @@
 
 
-module.exports = function ({ accountRepository, accountValidator }) {
+module.exports = function ({ accountRepository, accountValidator, accountRepositoryPostgres  }) {
 
 	return {
 		getAllAccounts(callback){
-			accountRepository.getAllAccounts(callback)
+			accountRepositoryPostgres.getAllAccounts(callback)
 		},
 
 		createAccount(newUser, callback){
@@ -12,8 +12,7 @@ module.exports = function ({ accountRepository, accountValidator }) {
 		
 		},
 		logInCredential(knownUser, callback){
-			accountRepository.logInCredential(knownUser, callback)
-			console.log("account manager fuuuuuckar")
+			accountRepositoryPostgres.logInCredential(knownUser, callback)
 		}
 
 	}

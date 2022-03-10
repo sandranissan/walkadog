@@ -11,7 +11,7 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 
-db.users = require("./sequelize-model").users(sequelize, Sequelize)
+db.users = require("./sequelize-model").users(sequelize, Sequelize) // får tbx en tabell från seq.mod.
 db.adverts = require("./sequelize-model").adverts(sequelize, Sequelize)
 db.photos = require("./sequelize-model").photos(sequelize, Sequelize)
 

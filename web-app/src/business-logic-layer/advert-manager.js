@@ -1,6 +1,6 @@
 
 
-module.exports = function createAdvert_router({ advertRepository, advertValidator }) {
+module.exports = function createAdvert_router({ advertRepository, advertValidator, advertRepositoryPostgres }) {
 
 	return {
 

@@ -22,19 +22,12 @@ function users(sequelize, DataTypes){  // funk  skapa tabell users, kÃ¶r sync fÃ
         },
 
         isAdmin: {
-            type: DataTypes.BOOLEAN  //bool?boolean?
+            type: DataTypes.BOOLEAN 
         },
 
     })
 
     sequelize.sync()
-
-   // sequelize.sync().then(() => {
-    //    users.create({
-
-    //    })
-   // })
-
    return users
 }
 
@@ -68,7 +61,6 @@ function adverts(sequelize, DataTypes){
     sequelize.sync()
     return adverts
 }
-
 
 function photos(sequelize, DataTypes){
     const photos = sequelize.define('photos', {

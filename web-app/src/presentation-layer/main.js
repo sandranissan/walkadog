@@ -52,6 +52,16 @@ container.register(
     awilix.asFunction(require('../presentation-layer/app.js'))
 )
 
+container.register(
+    'accountRepositoryPostgres',
+    awilix.asFunction(require('../data-access-layer-postgres/account-repository.js'))
+)
+
+container.register(
+    'advertRepositoryPostgres',
+    awilix.asFunction(require('../data-access-layer-postgres/advert-repository.js'))
+)
+
 const app = container.resolve('app')
 console.log("app startar")
 app.start()
