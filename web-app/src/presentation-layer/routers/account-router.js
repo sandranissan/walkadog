@@ -18,7 +18,7 @@ module.exports = function createAccount_router({ accountManager }) {
         }
 
         accountManager.logInCredential(logInKnownUser, function (errors, knownUser) {
-            console.log(knownUser)
+           // console.log(knownUser)
 
             if (errors.length > 0) {
                 response.render("start.hbs")
