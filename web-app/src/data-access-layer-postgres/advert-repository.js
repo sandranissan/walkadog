@@ -13,11 +13,11 @@ return {
                 required: false
             }]
         })
-        .then(allAdverts, () => {
+        .then(allAdverts => 
             callback([], allAdverts)
-        }).catch(error, () => {
+        ).catch(error => 
             callback(['databaseError'], null)
-        })
+        )
     },
 
 

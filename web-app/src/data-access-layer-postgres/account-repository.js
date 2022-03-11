@@ -35,7 +35,7 @@ module.exports = function createPostgresAccountRepository(){
 
         },
         createAccount(newUser, callback){
-            const seqCreate = db.newUser.create({
+            const seqCreate = db.users.create({
                 userName: newUser.userName,
                 userEmail: newUser.userEmail,
                 userPassword: newUser.userPassword
@@ -47,12 +47,13 @@ module.exports = function createPostgresAccountRepository(){
                     'userPassword'
                 ]
             })
-            if(error){
-                callback(['database', null])
-            }
-            else {
-                callback([], newUser)
-            }
+            .then(allAccounts => 
+                callback([], allAccounts)
+            ).catch(error => 
+                callback(['databaseError'], null)
+            )
+          
+          
         }
     }
 }
