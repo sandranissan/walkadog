@@ -1,11 +1,15 @@
 
 
-module.exports = function createAdvert_router({ advertRepository, advertValidator }) {
+module.exports = function createAdvert_router({ advertRepository, advertValidator, advertRepositoryPostgres }) {
 
 	return {
 
 		getAllAdverts(callback){
 			advertRepository.getAllAdverts(callback)
+		},
+
+		getSpecificAdvert(advertId, callback){
+			advertRepository.getSpecificAdvert(advertId, callback)
 		},
 
 		createAdvert(newAdvert, callback){

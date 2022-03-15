@@ -10,7 +10,7 @@ const MAX_CONTACT_LENGTH = 10
 
 
 
-module.exports = function createAdvert_router({ advertRepository }) {
+module.exports = function createAdvert_router({ advertRepository, advertRepositoryPostgres }) {
 
     return {
 

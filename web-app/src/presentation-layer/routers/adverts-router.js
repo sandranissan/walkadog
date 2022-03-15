@@ -8,10 +8,12 @@ module.exports = function createAdvert_router({ advertManager }) {
 
     router.get('/', function (request, response) {
         advertManager.getAllAdverts(function (errors, adverts) {
+            
             const model = {
                 errors: errors,
                 adverts: adverts
             }
+            //console.log(adverts)
             response.render("adverts.hbs", model)
         })
     })
@@ -61,8 +63,18 @@ module.exports = function createAdvert_router({ advertManager }) {
         })
     })
 
-    router.get('/specificAdvert', function (request, response) {
-        response.render('specificAdvert.hbs')
+    router.get('/specificAdvert/:id', function (request, response) {
+        advertId = request.params.id
+        advertManager.getSpecificAdvert( advertId, function(errors, advert){
+            if (0 < errors.length) {
+                response.render("start.hbs")
+            }
+            else {
+                response.render('specificAdvert.hbs', advert)
+            }
+
+        })
+        
     })
 
     return router

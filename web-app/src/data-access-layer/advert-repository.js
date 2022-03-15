@@ -1,11 +1,10 @@
-
 module.exports = function createAdvert_repository() {
     const db = require('./db.js')
 
     return {
         getAllAdverts(callback) {
 
-            const query = `SELECT * FROM adverts  JOIN photos ON photos.advert = adverts.advertId ORDER BY adverts.advertId DESC`
+            const query = 'SELECT * FROM adverts JOIN photos ON photos.advert = adverts.advertId ORDER BY adverts.advertId DESC'
             const values = []
 
             db.query(query, values, function (error, adverts) {
@@ -15,15 +14,30 @@ module.exports = function createAdvert_repository() {
                     callback([], adverts)
                 }
             })
+        },
+
+
+
+        getSpecificAdvert(advertId ,callback){
+            const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE advertId = ?'
+            const values = [advertId]
+        
+            db.query(query, values, function (error, specificAdvert) {
+                console.log(specificAdvert)
+                if (error) {
+                    callback(['databaseError'], null)
+                } else {
+                    callback([], specificAdvert)
+                }
+            })
 
         },
 
         createAdvert(newAdvert, callback) {
 
-            const query = `INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)`
+            const query = 'INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)'
             const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.advertContact]
-            const photoQuery = 'INSERT INTO photos (nameOfFile, advert, photoDescription) VALUES(?,?,?) '
-            //console.log(values)
+            const photoQuery = 'INSERT INTO photos (nameOfFile, advert, photoDescription) VALUES(?,?,?)'
 
             db.query(query, values, function (error, savedAdvert) {
                 if (error) {
@@ -42,14 +56,9 @@ module.exports = function createAdvert_repository() {
                             console.log("lade in foto")
                             callback([], photoResult)
                         }
-                    })
-
-                    
+                    })       
                 }
-                console.log("db2")
             })
         }
-
     }
-
 }

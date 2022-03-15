@@ -18,5 +18,14 @@ services:
     build: "./session-redis"
     ports:
       - "6379:6379"
+
+  postgres-db:
+    build: './postgres-db'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "abc123"
+      POSTGRES_USER: aljonaSandra
+      POSTGRES_DB: postgres
   
 

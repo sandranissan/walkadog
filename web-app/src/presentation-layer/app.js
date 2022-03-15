@@ -6,6 +6,9 @@ const session = require('express-session')
 const redis = require('redis')
 const connectRedis = require('connect-redis')
 const RedisStore = connectRedis(session)
+const db = require('../data-access-layer-postgres/db')
+
+
 
 module.exports = function createApp({ variousRouter, accountRouter, advertsRouter }) {
 
