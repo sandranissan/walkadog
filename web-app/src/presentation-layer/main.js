@@ -1,6 +1,23 @@
 const awilix = require('awilix');
 
+const dataLPath = 'data-access-layer'
+const dataLPathPost = 'data-access-layer-postgres'
+
+const DAL = dataLPath
+
 const container = awilix.createContainer()
+
+
+container.register(
+    'accountRepository',
+    awilix.asFunction(require('../'+ DAL + '/account-repository.js'))
+)
+
+container.register(
+    'advertRepository',
+    awilix.asFunction(require('../'+ DAL +'/advert-repository.js'))
+)
+
 
 container.register(
     'accountManager',
@@ -23,16 +40,6 @@ container.register(
 )
 
 container.register(
-    'accountRepository',
-    awilix.asFunction(require('../data-access-layer/account-repository.js'))
-)
-
-container.register(
-    'advertRepository',
-    awilix.asFunction(require('../data-access-layer/advert-repository.js'))
-)
-
-container.register(
     'accountRouter',
     awilix.asFunction(require('../presentation-layer/routers/account-router.js'))
 )
@@ -52,14 +59,10 @@ container.register(
     awilix.asFunction(require('../presentation-layer/app.js'))
 )
 
-container.register(
-    'accountRepositoryPostgres',
-    awilix.asFunction(require('../data-access-layer-postgres/account-repository.js'))
-)
 
 container.register(
-    'advertRepositoryPostgres',
-    awilix.asFunction(require('../data-access-layer-postgres/advert-repository.js'))
+    'hashManager',
+    awilix.asFunction(require('../business-logic-layer/hash-manager.js'))
 )
 
 const app = container.resolve('app')

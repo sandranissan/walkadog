@@ -27,7 +27,7 @@ module.exports = function createAdvert_repository() {
                 if (error) {
                     callback(['databaseError'], null)
                 } else {
-                    callback([], specificAdvert)
+                    callback([], specificAdvert[0])
                 }
             })
 

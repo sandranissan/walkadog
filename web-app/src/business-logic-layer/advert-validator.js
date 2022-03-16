@@ -10,7 +10,7 @@ const MAX_CONTACT_LENGTH = 10
 
 
 
-module.exports = function createAdvert_router({ advertRepository, advertRepositoryPostgres }) {
+module.exports = function createAdvert_router({ advertRepository }) {
 
     return {
 
@@ -28,6 +28,7 @@ module.exports = function createAdvert_router({ advertRepository, advertReposito
             if (MAX_TITLE_LENGTH < newAdvert.advertName.length) {
                 errors.push("TitleTooLong")
             }
+
             if(errors.length > 0){
                 callback( errors, [])
             }

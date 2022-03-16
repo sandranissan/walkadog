@@ -3,7 +3,8 @@
 const MIN_USERNAME_LENGTH = 3
 const MAX_USERNAME_LENGTH = 10
 
-module.exports = function createAdvert_router({ accountRepository, accountRepositoryPostgres }) {
+
+module.exports = function createAdvert_router({ accountRepository }) {
 
     return {
         getErrorsNewAccount(newUser, callback) {
@@ -23,7 +24,7 @@ module.exports = function createAdvert_router({ accountRepository, accountReposi
                 callback( errors, [])
             }
 
-            accountRepositoryPostgres.createAccount(newUser, function(errors, newUser){
+            accountRepository.createAccount(newUser, function(errors, newUser){
         
                 if(errors.length > 0) {
                 }
@@ -33,9 +34,12 @@ module.exports = function createAdvert_router({ accountRepository, accountReposi
             })
         },
 
-        checklogInCredentials(knownUser, callback){
 
-            accountRepositoryPostgres.logInCredentials(knownUser, function(errors, knownUser){
+
+        checklogInCredentials(knownUser, callback){
+            //
+
+            accountRepository.logInCredentials(knownUser, function(errors, knownUser){
                 if(errors.length > 0){
                     console.error(errors)
                     console.log("error i account-validator")

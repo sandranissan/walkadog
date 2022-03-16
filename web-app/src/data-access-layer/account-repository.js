@@ -20,19 +20,19 @@ module.exports = function createAccount_repository() {
 
 		logInCredential(knownUser, callback) {
 
-			const query = `SELECT * FROM users WHERE userName = ? AND userPassword = ?`
-			const values = [knownUser.userName, knownUser.userPassword]
+			const query = `SELECT * FROM users WHERE userName = ? `
+			const values = [knownUser.userName]
 
-			db.query(query, values, function (error, knownUser) {
+			db.query(query, values, function (error, foundUser) {
 				userError = []
-				if (knownUser.length == 0) {
+				if (foundUser.length == 0) {
 					userError.push("User not found.")
 				}
 				if (error || userError.length > 0) {
 					console.log(error, "error i account-repository.js")
 					callback(userError, [])
 				} else {
-					callback([], knownUser[0])
+					callback([], foundUser[0])
 				}
 
 			})
@@ -44,6 +44,8 @@ module.exports = function createAccount_repository() {
 			//ska jag få in ett hash value här?
 			const values = [newUser.userName, newUser.userEmail, newUser.userPassword]
 
+			console.log(newUser)
+
 			// console.log("repo")
 
 			db.query(query, values, function (error, newUser) {
@@ -53,7 +55,6 @@ module.exports = function createAccount_repository() {
 				} else {
 					callback([], newUser)
 				}
-				//  console.log("db")
 			})
 		}
 

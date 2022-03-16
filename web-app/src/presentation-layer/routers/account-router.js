@@ -1,5 +1,6 @@
 const express = require('express')
 const staticPath = require("path").resolve(__dirname, '..')
+const bcrypt = require('bcrypt')
 
 
 module.exports = function createAccount_router({ accountManager }) {
@@ -49,12 +50,12 @@ module.exports = function createAccount_router({ accountManager }) {
     })
 
     router.post('/signUp', function (request, response) {
-
-        const newUser = {
-            userName: request.body.username,
-            userEmail: request.body.userEmail,
-            userPassword: request.body.userPassword
-        }
+        
+            const newUser = {
+                userName: request.body.username,
+                userEmail: request.body.userEmail,
+                userPassword: request.body.userPassword
+            }
 
         accountManager.createAccount(newUser, function (errors, user) {
             if (errors.length > 0) {
