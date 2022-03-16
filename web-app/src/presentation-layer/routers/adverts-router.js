@@ -52,7 +52,7 @@ module.exports = function createAdvert_router({ advertManager }) {
             // console.log(newAdvert) 
 
             if (0 < errors.length) {
-                response.render("adverts-createAdvert.hbs")
+                response.redirect("/adverts")
             }
             else {
                 
@@ -63,8 +63,8 @@ module.exports = function createAdvert_router({ advertManager }) {
         })
     })
 
-    router.get('/specificAdvert/:id', function (request, response) {
-        advertId = request.params.id
+    router.get('/specificAdvert/:Id', function (request, response) {
+        advertId = request.params.Id
         advertManager.getSpecificAdvert( advertId, function(errors, advert){
             if (0 < errors.length) {
                 response.render("start.hbs")

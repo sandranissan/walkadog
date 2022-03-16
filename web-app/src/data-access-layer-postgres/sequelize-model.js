@@ -63,7 +63,7 @@ function adverts(sequelize, DataTypes){
 }
 
 function photos(sequelize, DataTypes){
-    const photos = sequelize.define('photos', {
+    const photos = sequelize.define('photo', {
         photoId: {
             primaryKey: true,
             type: DataTypes.INTEGER,
