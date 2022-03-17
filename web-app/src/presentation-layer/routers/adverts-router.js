@@ -13,7 +13,6 @@ module.exports = function createAdvert_router({ advertManager }) {
                 errors: errors,
                 adverts: adverts
             }
-            //aconsole.log(adverts)
             response.render("adverts.hbs", model)
         })
     })
