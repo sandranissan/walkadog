@@ -1,5 +1,4 @@
 
-
 const MIN_USERNAME_LENGTH = 3
 const MAX_USERNAME_LENGTH = 10
 

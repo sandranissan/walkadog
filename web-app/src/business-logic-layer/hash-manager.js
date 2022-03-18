@@ -9,13 +9,6 @@ module.exports = function ({}) {
             return hashedPassword
 
         },
-
-        async comparePasswords(hashPassword, userPassword){
-            
-        }
-
-        // hash funktioner 
-        //1 function get hash
-        //2 hash compare
     }
+
 }

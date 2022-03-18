@@ -17,8 +17,6 @@ container.register(
     'advertRepository',
     awilix.asFunction(require('../'+ DAL +'/advert-repository.js'))
 )
-
-
 container.register(
     'accountManager',
     awilix.asFunction(require('../business-logic-layer/account-manager.js'))
@@ -64,6 +62,13 @@ container.register(
     'hashManager',
     awilix.asFunction(require('../business-logic-layer/hash-manager.js'))
 )
+
+container.register(
+    'restApi',
+    awilix.asFunction(require('../presentation-layer-rest-api/rest-api-router.js'))
+)
+
+
 
 const app = container.resolve('app')
 console.log("app startar")

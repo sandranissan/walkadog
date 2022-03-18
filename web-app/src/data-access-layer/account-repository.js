@@ -18,10 +18,10 @@ module.exports = function createAccount_repository() {
 
 		},
 
-		logInCredential(knownUser, callback) {
+		logInCredentials(knownUser, callback) {
 
-			const query = `SELECT * FROM users WHERE userName = ? `
-			const values = [knownUser.userName]
+			const query = `SELECT * FROM users WHERE userName = ? AND userPassword = ? `
+			const values = [knownUser.userName, knownUser.userPassword]
 
 			db.query(query, values, function (error, foundUser) {
 				userError = []

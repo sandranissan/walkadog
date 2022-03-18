@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS photos(
 
 CREATE TABLE IF NOT EXISTS users(
     userId INT AUTO_INCREMENT PRIMARY KEY,
-    userName VARCHAR(30) UNIQUE,
+    userName VARCHAR(30),
     userEmail VARCHAR(50),
     userPassword VARCHAR(100),
     isAdmin BOOLEAN
