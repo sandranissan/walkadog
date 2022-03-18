@@ -19,7 +19,7 @@ module.exports = function({ accountManager }) {
     router.use(bodyParser.json())
 
     router.get("/", function(request, response){
-        accountManager.getAllAccounts(function(errors, accounts){
+        accountManager.getAllAccounts(function(errors, accounts){ 
             if(errors.length > 0){
                 response.status(400).json(errors)
             } else {
