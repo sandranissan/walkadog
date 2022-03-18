@@ -17,8 +17,6 @@ container.register(
     'advertRepository',
     awilix.asFunction(require('../'+ DAL +'/advert-repository.js'))
 )
-
-
 container.register(
     'accountManager',
     awilix.asFunction(require('../business-logic-layer/account-manager.js'))

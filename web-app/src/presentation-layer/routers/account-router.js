@@ -13,13 +13,13 @@ module.exports = function createAccount_router({ accountManager }) {
 
     router.post('/', function (request, response) {
 
-        const logInKnownUser = {
+        const knownUser = {
             userName: request.body.username,
             userPassword: request.body.userPassword
         }
 
-        accountManager.logInCredential(logInKnownUser, function (errors, knownUser) {
-           // console.log(knownUser)
+        accountManager.logInCredentials(knownUser, function (errors, knownUser) {
+            console.log(knownUser)
 
             if (errors.length > 0) {
                 response.render("start.hbs")
