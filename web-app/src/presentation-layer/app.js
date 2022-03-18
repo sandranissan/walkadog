@@ -66,6 +66,7 @@ module.exports = function createApp({ variousRouter, accountRouter, advertsRoute
             app.use('/', variousRouter)
             app.use('/logIn', accountRouter)
             app.use('/adverts', advertsRouter)
+            app.use('/rest', restApi)
 
             app.listen(8080, function () {
                 console.log("its up and running")
