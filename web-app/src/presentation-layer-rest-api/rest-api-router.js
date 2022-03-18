@@ -1,29 +1,28 @@
-const app = require("../presentation-layer/app")
 const express = require('express')
 const bodyParser = require('body-parser')
-const { accounts } = require("../data-access-layer-postgres/db")
+//const { accounts } = require("../data-access-layer-postgres/db")
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-    extended: false
-}))
 
 module.exports = function({ accountManager }) { 
     const router = express.Router()
+
+    router.use(bodyParser.json())
+    router.use(bodyParser.urlencoded({
+        extended: false
+    }))
 
     router.use(function(request, response, next){
         console.log(request.method, request.url)
         next()
     })
 
-    router.use(bodyParser.json())
 
     router.get("/", function(request, response){
-        accountManager.getAllAccounts(function(errors, accounts){
+        accountManager.getAllAccounts(function(errors, users){
             if(errors.length > 0){
                 response.status(400).json(errors)
             } else {
-                response.status(200).json(accounts)
+                response.status(200).json(users)
             }
 
         })
@@ -32,14 +31,14 @@ module.exports = function({ accountManager }) {
     router.get("/:id", function (request, response){
         const id = request.params.id
 
-        advertManager.getAllAccounts(function(errors,account){
+        accountManager.getAllAccounts(function(errors,users){
             if(errors.length>0){
                 response.status(400).json(errors)
             } else {
-                const account = accounts.find(a => a.account_id == id )
+                const user = users.find(a => a.userId == id )
 
-                if(advert){
-                    response.status(200).json(account)
+                if(user){
+                    response.status(200).json(user)
 
                 } else {
                     response.status(404).end()
@@ -56,13 +55,13 @@ module.exports = function({ accountManager }) {
             userEmail: request.body.userEmail
         }
 
-        accountManager.createAccount(newUser, function(errors, account){
+        accountManager.createAccount(newUser, function(errors, user){
             if(errors.length > 0){
                 response.status(400).json(errors)
             } else {
-                response.setHeader("Location", "/" + account)
+                response.setHeader("Location", "/" + user)
                 response.status(201).json({
-                    account
+                    user
                 })
             }
         })
@@ -84,5 +83,6 @@ module.exports = function({ accountManager }) {
 
 
     router.put("/:id") // och update , updateAccountblabla.. ?
+    return router
 
 }

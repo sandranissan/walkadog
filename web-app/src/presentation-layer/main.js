@@ -63,6 +63,13 @@ container.register(
     awilix.asFunction(require('../business-logic-layer/hash-manager.js'))
 )
 
+container.register(
+    'restApi',
+    awilix.asFunction(require('../presentation-layer-rest-api/rest-api-router.js'))
+)
+
+
+
 const app = container.resolve('app')
 console.log("app startar")
 app.start()
