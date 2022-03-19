@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users(
     isAdmin BOOLEAN
 
 );
-
+//fixde så att userId är FK till adverts
 CREATE TABLE IF NOT EXISTS adverts(
     advertId INT AUTO_INCREMENT PRIMARY KEY,
     advertName VARCHAR(100),
