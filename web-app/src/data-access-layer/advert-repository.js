@@ -18,16 +18,30 @@ module.exports = function createAdvert_repository() {
 
 
 
-        getSpecificAdvert(advertId ,callback){
+        getSpecificAdvert(advertId, callback) {
             const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE advertId = ?'
             const values = [advertId]
-        
+
             db.query(query, values, function (error, specificAdvert) {
                 console.log(specificAdvert)
                 if (error) {
                     callback(['databaseError'], null)
                 } else {
                     callback([], specificAdvert[0])
+                }
+            })
+
+        },
+
+        getAdvertsByUserId(userId, callback){
+            const query = 'SELECT * FROM adverts WHERE userId = ?'
+            const value = [userId]
+
+            db.query(query, value, function(error, userAdverts){
+                if(error){
+                    callback(['databaseError'], null)
+                }else {
+                    callback([],userAdverts)
                 }
             })
 
@@ -46,7 +60,7 @@ module.exports = function createAdvert_repository() {
                 } else {
                     console.log(newAdvert)
                     const photoValues = [newAdvert.photoPath, savedAdvert.insertId, newAdvert.photoDescription]
-                    db.query( photoQuery, photoValues, function (photoError, photoResult) {
+                    db.query(photoQuery, photoValues, function (photoError, photoResult) {
                         if (photoError) {
                             console.log(photoError)
                             callback(['databaseError'], null)
@@ -56,9 +70,44 @@ module.exports = function createAdvert_repository() {
                             console.log("lade in foto")
                             callback([], photoResult)
                         }
-                    })       
+                    })
                 }
             })
+        },
+
+        UpdateAdvertById(advertId, updatedAdvert, callback){
+            const query = 'UPDATE adverts SET advertName = ?, advertDescription = ?, contact = ? WHERE advertId = ?'
+            valueUpdatedAdvert = [updatedAdvert.advertName, updatedAdvert.advertDescription, updatedAdvert.contact, advertId]
+            
+            db.query(query,valueUpdatedAdvert, function(error, updatedAdvert){
+                console.log(updatedAdvert)
+                if(error){
+                    callback(['databaseError'],null)
+                }else {
+                    callback([], updatedAdvert[0])
+                }
+            })
+
+        },
+
+        deleteAdvertById(advertId, callback){
+            const query = ' DELETE FROM adverts WHERE advertId = ?'
+            const value = [advertId]
+
+            db.query(query,value, function(error, deletedAdvert){
+                console.log(deletedAdvert)
+                if(error){
+                    callback(['databaseError'], null)
+                } else {
+                    callback([], deletedAdvert[0])
+                }
+            })
+
         }
+
+
+
+
+
     }
 }

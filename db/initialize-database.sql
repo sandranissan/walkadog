@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users(
     isAdmin BOOLEAN
 
 );
-//fixde så att userId är FK till adverts
+
 CREATE TABLE IF NOT EXISTS adverts(
     advertId INT AUTO_INCREMENT PRIMARY KEY,
     advertName VARCHAR(100),
@@ -30,5 +30,4 @@ CREATE TABLE IF NOT EXISTS photos(
 INSERT INTO users (userName, userEmail, userPassword, isAdmin) VALUES ("aljona", "aljona@aljona", "aljona",1);
 INSERT INTO users (userName, userEmail, userPassword, isAdmin) VALUES ("sandra", "sandra@sandra", "sandra",1);
 INSERT INTO users (userName, userEmail, userPassword, isAdmin) VALUES ("sebbe", "sebbe@sandra", "sebbe",0);
-
 

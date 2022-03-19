@@ -1,6 +1,6 @@
 
 const MIN_TITLE_LENGTH = 3
-const MAX_TITLE_LENGTH = 10
+const MAX_TITLE_LENGTH = 20
 
 const MIN_DESC_LENGTH = 3
 const MAX_DESC_LENGTH = 10
@@ -18,8 +18,8 @@ module.exports = function createAdvert_router({ advertRepository }) {
 
             const errors = []
         
-            if (!newAdvert.hasOwnProperty("username")) { // ??
-                errors.push("usernameMissing")
+            if (!newAdvert.hasOwnProperty("advertName")) { // ??
+                errors.push("advertNameMissing")
                // console.log("vali")
             }
             if (newAdvert.advertName.length < MIN_TITLE_LENGTH) {

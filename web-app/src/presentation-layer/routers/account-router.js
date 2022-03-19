@@ -52,7 +52,7 @@ module.exports = function createAccount_router({ accountManager }) {
     router.post('/signUp', function (request, response) {
         
             const newUser = {
-                userName: request.body.username,
+                userName: request.body.userName,
                 userEmail: request.body.userEmail,
                 userPassword: request.body.userPassword
             }

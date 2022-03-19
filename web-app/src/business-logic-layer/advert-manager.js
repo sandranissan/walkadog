@@ -14,7 +14,18 @@ module.exports = function createAdvert_router({ advertRepository, advertValidato
 
 		createAdvert(newAdvert, callback){
 			advertValidator.getErrorsNewAdvert(newAdvert, callback)
+		},
+
+		UpdateAdvertById(advertId, updatedAdvert, callback){
+			advertRepository.UpdateAdvertById(advertId,updatedAdvert,callback)
+		},
+		deleteAdvertById(advertId, callback){
+			advertRepository.deleteAdvertById(advertId,callback)
+		},
+		getAdvertsByUserId(userId, callback){
+			advertRepository.getAdvertsByUserId(userId, callback)
 		}
+
 
 	}
 }

@@ -10,7 +10,7 @@ module.exports = function createAdvert_router({ accountRepository }) {
 
             const errors = []
         
-            if (!newUser.hasOwnProperty("username")) {
+            if (!newUser.hasOwnProperty("userName")) {
                 errors.push("usernameMissing")
             }
             if (newUser.userName.length < MIN_USERNAME_LENGTH) {
