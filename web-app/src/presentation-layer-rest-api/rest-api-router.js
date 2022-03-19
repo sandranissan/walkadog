@@ -28,6 +28,8 @@ module.exports = function({ accountManager }) {
         })
     })
 
+
+
     router.get("/:id", function (request, response){
         const id = request.params.id
 
@@ -48,41 +50,49 @@ module.exports = function({ accountManager }) {
         })
     })
 
-    router.post("/signUp", function(request, response){
-        const newUser = {
-            userName: request.body.userName,
-            userPassword: request.body.userPassword,
-            userEmail: request.body.userEmail
-        }
 
-        accountManager.createAccount(newUser, function(errors, user){
-            if(errors.length > 0){
-                response.status(400).json(errors)
-            } else {
-                response.setHeader("Location", "/" + user)
-                response.status(201).json({
-                    user
-                })
-            }
-        })
+    // router.post("/logIn", function(request, response){
+    //     const user = {
+    //         userName: request.body.userName,
+    //         userPassword: request.body.userPassword
+    //     }
+
+    //     // accountManager.logIn // punkt vaaadd?? finns inget i account-manager som heter typ getUserByUserName ?? lägga till de kanske?
+    // })
+
+
+    // router.post("/signUp", function(request, response){
+    //     const newUser = {
+    //         userName: request.body.userName,
+    //         userPassword: request.body.userPassword,
+    //         userEmail: request.body.userEmail
+    //     }
+
+    //     accountManager.createAccount(newUser, function(errors, user){
+    //         if(errors.length > 0){
+    //             response.status(400).json(errors)
+    //         } else {
+    //             response.setHeader("Location", "/" + user)
+    //             response.status(201).json({
+    //                 user
+    //             })
+    //         }
+    //     })
          
-    })
+    // })
 
-    router.post("/logIn", function(request, response){
-        const user = {
-            userName: request.body.userName,
-            userPassword: request.body.userPassword
-        }
-
-        // accountManager. // punkt vaaadd?? finns inget i account-manager som heter typ getUserByUserName ?? lägga till de kanske?
-    })
-
-
-
-    router.delete("/:id") // samma sak för delete , deletebyUsername?
-
-
-    router.put("/:id") // och update , updateAccountblabla.. ?
+    //router.put("/:id") // och update , updateAccountblabla.. ? updatera advert för just det kontot 
+    //router.delete("/:id") // samma sak för delete , deletebyUsername? ta bort advert för det kontot
+    //router get för advert med just det kontot
+    //router post för advert med just det kontot
+    
     return router
 
 }
+
+//skapa konto
+//logga in på konto
+//hämta advert
+//skapa advert
+//update
+//delete

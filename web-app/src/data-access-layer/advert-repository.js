@@ -35,8 +35,8 @@ module.exports = function createAdvert_repository() {
 
         createAdvert(newAdvert, callback) {
 
-            const query = 'INSERT INTO adverts (advertName, advertDescription, contact) VALUES (?,?,?)'
-            const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.advertContact]
+            const query = 'INSERT INTO adverts (advertName, advertDescription, contact, userId) VALUES (?,?,?,?)'
+            const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.advertContact, newAdvert.userId]
             const photoQuery = 'INSERT INTO photos (nameOfFile, advert, photoDescription) VALUES(?,?,?)'
 
             db.query(query, values, function (error, savedAdvert) {

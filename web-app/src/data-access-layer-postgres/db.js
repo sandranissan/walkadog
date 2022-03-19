@@ -1,9 +1,7 @@
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize('postgres', 'aljonaSandra', 'abc123', {
-    host: 'postgres-db',
-    dialect: 'postgres'
-})
+//ändrade inparametrarna till sequelize, så detta funkar nu.
+const sequelize = new Sequelize('postgres://aljonaSandra:abc123@postgres-db:5432/postgres')
 
 const db = {}
 

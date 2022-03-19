@@ -44,7 +44,9 @@ module.exports = function createAdvert_router({ advertManager }) {
             advertDescription: request.body.advertDescription,
             advertContact: request.body.advertContact,
             photoDescription : request.body.photoDescription,
-            photoPath : photoName
+            photoPath : photoName,
+            userId : request.session.userId
+
         }
         // console.log(newAdvert)
         advertManager.createAdvert(newAdvert, function (errors, advert) {   // newAdvert' is declared but its value is never read. VARFÖR

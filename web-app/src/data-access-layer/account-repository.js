@@ -23,16 +23,16 @@ module.exports = function createAccount_repository() {
 			const query = `SELECT * FROM users WHERE userName = ? AND userPassword = ? `
 			const values = [knownUser.userName, knownUser.userPassword]
 
-			db.query(query, values, function (error, foundUser) {
+			db.query(query, values, function (error, knownUser) {
 				userError = []
-				if (foundUser.length == 0) {
+				if (knownUser.length == 0) {
 					userError.push("User not found.")
 				}
 				if (error || userError.length > 0) {
 					console.log(error, "error i account-repository.js")
 					callback(userError, [])
 				} else {
-					callback([], foundUser[0])
+					callback([], knownUser[0])
 				}
 
 			})
