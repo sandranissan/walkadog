@@ -38,6 +38,7 @@ module.exports = function createAccount_repository() {
 			})
 		},
 
+
 		createAccount (newUser, callback) {
 
 			const query = `INSERT INTO users (userName, userEmail, userPassword) VALUES (?, ?, ?)`

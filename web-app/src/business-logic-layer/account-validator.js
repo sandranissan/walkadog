@@ -1,6 +1,6 @@
 
 const MIN_USERNAME_LENGTH = 3
-const MAX_USERNAME_LENGTH = 10
+const MAX_USERNAME_LENGTH = 20
 
 
 module.exports = function createAdvert_router({ accountRepository }) {

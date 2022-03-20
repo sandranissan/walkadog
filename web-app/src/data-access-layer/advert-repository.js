@@ -77,7 +77,7 @@ module.exports = function createAdvert_repository() {
 
         UpdateAdvertById(advertId, updatedAdvert, callback){
             const query = 'UPDATE adverts SET advertName = ?, advertDescription = ?, contact = ? WHERE advertId = ?'
-            valueUpdatedAdvert = [updatedAdvert.advertName, updatedAdvert.advertDescription, updatedAdvert.contact, advertId]
+            const valueUpdatedAdvert = [updatedAdvert.advertName, updatedAdvert.advertDescription, updatedAdvert.contact, advertId]
             
             db.query(query,valueUpdatedAdvert, function(error, updatedAdvert){
                 console.log(updatedAdvert)
@@ -100,6 +100,21 @@ module.exports = function createAdvert_repository() {
                     callback(['databaseError'], null)
                 } else {
                     callback([], deletedAdvert[0])
+                }
+            })
+
+        },
+
+        createAdvertById(userId, userAdvert, callback){
+            const query = 'INSERT INTO adverts advertName = ?, advertDescription = ?, contact = ? WHERE userId = ?'
+            const values = [userAdvert.advertName,userAdvert.advertDescription,userAdvert.contact, userId]
+
+            db.query(query,values, function(error, newUserAdvert){
+                console.log(newUserAdvert)
+                if(error){
+                    callback(['databaseError'], null)
+                }else {
+                    callback([],newUserAdvert)
                 }
             })
 

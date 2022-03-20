@@ -1,10 +1,28 @@
 const express = require('express')
 const staticPath = require("path").resolve(__dirname, '..')
 
+function sessionValidater(request,response,next){
+
+    if(!request.session.isLoggedIn){
+        const error= ["please log in first!!"]
+        console.log("------------------------")
+        next(error)
+
+    }
+    else{
+        next()
+    }
+
+}
+
 
 module.exports = function createAdvert_router({ advertManager }) {
 
     const router = express.Router()
+
+    
+
+    
 
     router.get('/', function (request, response) {
         advertManager.getAllAdverts(function (errors, adverts) {
@@ -17,10 +35,29 @@ module.exports = function createAdvert_router({ advertManager }) {
         })
     })
 
+    router.get('/specificAdvert/:Id', function (request, response) {
+        advertId = request.params.Id
+        advertManager.getSpecificAdvert( advertId, function(errors, advert){
+            if (0 < errors.length) {
+                response.render("start.hbs")
+            }
+            else {
+                response.render('specificAdvert.hbs', advert)
+            }
+
+        })
+        
+    })
+    //kollar om jag är inloggad
+    router.use(sessionValidater)
+
+
     router.get('/createAdvert', function (request, response) {
 
         response.render('adverts-createAdvert.hbs')
     })
+
+
 
     router.post('/createAdvert', function (request, response) {
         const photoObject = request.files.photo
@@ -64,19 +101,7 @@ module.exports = function createAdvert_router({ advertManager }) {
         })
     })
 
-    router.get('/specificAdvert/:Id', function (request, response) {
-        advertId = request.params.Id
-        advertManager.getSpecificAdvert( advertId, function(errors, advert){
-            if (0 < errors.length) {
-                response.render("start.hbs")
-            }
-            else {
-                response.render('specificAdvert.hbs', advert)
-            }
 
-        })
-        
-    })
 
     return router
 }
