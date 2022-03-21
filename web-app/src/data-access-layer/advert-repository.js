@@ -105,24 +105,6 @@ module.exports = function createAdvert_repository() {
 
         },
 
-        createAdvertById(userId, userAdvert, callback){
-            const query = 'INSERT INTO adverts advertName = ?, advertDescription = ?, contact = ? WHERE userId = ?'
-            const values = [userAdvert.advertName,userAdvert.advertDescription,userAdvert.contact, userId]
-
-            db.query(query,values, function(error, newUserAdvert){
-                console.log(newUserAdvert)
-                if(error){
-                    callback(['databaseError'], null)
-                }else {
-                    callback([],newUserAdvert)
-                }
-            })
-
-        }
-
-
-
-
-
+       
     }
 }

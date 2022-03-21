@@ -27,5 +27,18 @@ services:
       POSTGRES_PASSWORD: "abc123"
       POSTGRES_USER: aljonaSandra
       POSTGRES_DB: postgres
+
+  spa:
+    image: nginx
+    container_name: spa
+    ports:
+      - "80:80"
+    volumes:
+      - ./spa/nginx.conf:/etc/nginx/nginx.conf
+      - ./spa/static_spa/index.html:/data/www/index.html
+      - ./spa/static_spa/js/navigationSpa.js:/data/www/navigationSpa.js
+      - ./spa/static_spa/css/style.css:/data/www/style.css
+
+
   
 

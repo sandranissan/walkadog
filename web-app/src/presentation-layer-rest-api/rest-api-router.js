@@ -119,7 +119,7 @@ module.exports = function ({ accountManager, advertManager }) {
             if(errors.length > 0){
                 response.status(400).json(errors)
             } else {
-                const payload = {id: user}
+                const payload = {id: user.userId, Name: user.userName }
                 jwt.sign(payload, privateSecret, function(error, token){
                     if(error){
                         response.status(500).end()
@@ -153,8 +153,8 @@ module.exports = function ({ accountManager, advertManager }) {
             if(errors.length > 0){
                 response.status(400).json(errors)
             }else {
-                const payload = {id: user}
-                jwt.sign(payload, privateKey, function(error, token){
+                const payload = {id: user.userId, name: user.userName}
+                jwt.sign(payload, privateSecret, function(error, token){
                     if(error){
                         response.status(500).end()
                     }else{
