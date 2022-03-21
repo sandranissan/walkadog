@@ -75,7 +75,7 @@ module.exports = function createAdvert_router({ advertManager }) {
         const newAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,
-            advertContact: request.body.advertContact,
+            contact: request.body.advertContact,
             photoDescription : request.body.photoDescription,
             photoPath : photoName,
             userId : request.session.userId
