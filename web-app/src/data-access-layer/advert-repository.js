@@ -32,23 +32,7 @@ module.exports = function createAdvert_repository() {
             })
 
         },
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        //andvänds i Rest Api
-        getAdvertsByUserId(userId, callback){
-=======
-
         getAdvertsByUserId(userId, callback){ 
->>>>>>> Stashed changes
-=======
-
-        getAdvertsByUserId(userId, callback){ 
->>>>>>> Stashed changes
-=======
-
-        getAdvertsByUserId(userId, callback){ 
->>>>>>> Stashed changes
             const query = 'SELECT * FROM adverts WHERE userId = ?'
             const value = [userId]
 
