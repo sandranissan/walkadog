@@ -2,6 +2,20 @@ const express = require('express')
 const staticPath = require("path").resolve(__dirname, '..')
 const bcrypt = require('bcrypt')
 
+function accountSessionValidator(request,response,next){
+
+    if(request.session.isLoggedIn){
+        const error = ["You already have an account"]
+        console.log("*******************")
+        next(error)
+    }else {
+        next()
+    }
+
+
+}
+
+
 
 module.exports = function createAccount_router({ accountManager }) {
 
@@ -44,6 +58,21 @@ module.exports = function createAccount_router({ accountManager }) {
 
     })
 
+    router.get('/accountProfile', function (request, response) {
+
+        response.render('accountProfile.hbs')
+    })
+
+    router.post('/accountProfile', function (request, response) {
+        console.log(request.session)
+        request.session.destroy()
+        console.log("logga ut funkade")
+        response.redirect('/')
+    })
+
+    //kollar om man är inloggad, om man är det så kan man inte skapa konto
+    router.use(accountSessionValidator)
+
     router.get('/signUp', function (request, response) {
 
         response.render('signUp.hbs')
@@ -72,17 +101,7 @@ module.exports = function createAccount_router({ accountManager }) {
         })
     })
 
-    router.get('/accountProfile', function (request, response) {
-
-        response.render('accountProfile.hbs')
-    })
-
-    router.post('/accountProfile', function (request, response) {
-        console.log(request.session)
-        request.session.destroy()
-        console.log("logga ut funkade")
-        response.redirect('/')
-    })
+    
 
     return router
 

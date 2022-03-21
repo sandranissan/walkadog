@@ -32,7 +32,7 @@ module.exports = function createAdvert_repository() {
             })
 
         },
-
+        //andvänds i Rest Api
         getAdvertsByUserId(userId, callback){
             const query = 'SELECT * FROM adverts WHERE userId = ?'
             const value = [userId]
@@ -46,7 +46,7 @@ module.exports = function createAdvert_repository() {
             })
 
         },
-
+        //Används i rest Api
         createAdvert(newAdvert, callback) {
 
             const query = 'INSERT INTO adverts (advertName, advertDescription, contact, userId) VALUES (?,?,?,?)'

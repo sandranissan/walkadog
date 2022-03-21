@@ -1,13 +1,12 @@
 const express = require('express')
 const staticPath = require("path").resolve(__dirname, '..')
 
-function sessionValidater(request,response,next){
+function advertSessionValidater(request,response,next){
 
     if(!request.session.isLoggedIn){
         const error= ["please log in first!!"]
         console.log("------------------------")
         next(error)
-
     }
     else{
         next()
@@ -19,10 +18,6 @@ function sessionValidater(request,response,next){
 module.exports = function createAdvert_router({ advertManager }) {
 
     const router = express.Router()
-
-    
-
-    
 
     router.get('/', function (request, response) {
         advertManager.getAllAdverts(function (errors, adverts) {
@@ -48,8 +43,9 @@ module.exports = function createAdvert_router({ advertManager }) {
         })
         
     })
-    //kollar om jag är inloggad
-    router.use(sessionValidater)
+
+    //kollar om jag är inloggad, om inte så kan jag inte skapa ett inlägg
+    router.use(advertSessionValidater)
 
 
     router.get('/createAdvert', function (request, response) {
@@ -93,7 +89,7 @@ module.exports = function createAdvert_router({ advertManager }) {
                 response.redirect("/adverts")
             }
             else {
-                
+                response.redirect("/adverts")
                 //  photoManager.uploadPhoto(newPhoto)
 
             }
