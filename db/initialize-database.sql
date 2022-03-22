@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS users(
     userName VARCHAR(30),
     userEmail VARCHAR(50),
     userPassword VARCHAR(100),
-    isAdmin BOOLEAN
+    isAdmin BOOLEAN,
+    CONSTRAINT usernameUnique UNIQUE (userName)
 
 );
 

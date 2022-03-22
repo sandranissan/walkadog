@@ -75,3 +75,98 @@ module.exports = function createApp({ variousRouter, accountRouter, advertsRoute
         }
     }
 }
+
+
+// const anchors = document.querySelectorAll('a')
+
+// for(const anchor of anchors){
+//     anchor.addEventListener('click', function(event){
+//         event.preventDefault()
+
+//         const url = anchor.getAttribute('href')
+//         history.pushState(null, "", url)
+
+//         hideCurrentPage()
+//         showPage(url)
+//     })
+// }
+
+// showPage(location.pathname)
+ 
+// })
+
+// window.addEventListener("popstate", function () {
+
+// hideCurrentPage()
+// showPage(location.pathname)
+// })
+
+// function hideCurrentPage(){
+// document.querySelector('.current-page').classList.remove('current-page')
+// }
+
+
+// function showPage(url) {
+
+// let nextPageId
+
+// switch (url) {
+
+//     case '/':
+//         nextPageId = 'homePage'
+//         break;
+//     case '/adverts':
+//         nextPageId = 'advertPage'
+//         loadAdvertsPage()
+//         break;
+//     // case '/myAdverts':
+//     //     nextPageId = 'myAdvertsPage'
+//     //     break;
+
+//     case '/createAdverts':
+//         nextPageId = 'createAdvertPage'
+        
+//         break;
+
+//     case '/signIn':
+//         nextPageId = 'signInPage'
+//         break;
+
+//     case '/login':
+//         nextPageId = 'loginPage'
+//         break;
+
+//     case '/createAdverts':
+//         nextPageId = 'createAdvertPage'
+//         break;
+
+//     case '/logout':
+//         logout()
+//         break;
+
+//     case '/error/400':
+//         nextPageId = 'error400Page'
+//         break;
+
+//     case '/error/401':
+//         nextPageId = 'error401Page'
+//         break;
+
+//     case '/error/500':
+//         nextPageId = 'error500Page'
+//         break;
+
+//     case '/createAdverts':
+//         nextPageId = 'createAdvertPage'
+//         break;
+
+//     default:
+//         if(url.startsWith("/adverts/")){
+//             const [empty, adverts, id] = url.split("/")
+//             nextPageId = 'myAdvertsPage'
+//             loadMyAdvertpage(id)
+//         }
+//         break;
+// }
+
+// document.getElementById(nextPageId).classList.add('current-page')

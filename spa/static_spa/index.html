@@ -1,12 +1,175 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="./restApiHandler.js"></script>
+    <title>SPA</title>
+    <script src="./navigationSpa.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    
 </head>
+
 <body>
-    <p>heeeeeeeeeeeeeeej!!!!</p>
+    <header>Walk my Dog</header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/adverts">Adverts</a></li>
+            <li><a class="showIfLoggedIn" href="/createAdvert">Create Advert</a></li>
+            <li><a class="showIfLoggedOut" href="/signUp">Sign up</a></li>
+            <li><a class="showIfLoggedOut" href="/login">Login</a></li>
+            <li><a class="showIfLoggedIn" href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <div class="page" id="homePage">
+            <div class="container jumbotron bg-primary text-white mt-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>WALK MY DOG</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="advertsPage">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="container" id="container">
+                            <div class="jumbotron bg-light text-black mt-4" id="jumbotron">
+                                <h1>Adverts</h1>
+                                <ul>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="advertPage">
+
+            <div class="container jumbotron bg-light text-black mt-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Advert</h1>
+                        <div>Name <span class="name"></span></div>
+                        <div>Description: <span class="description"></span></div>
+                        <div>Contact: <span class="contact"></span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="page" id="createAdvertPage">
+            <div class="container jumbotron bg-light text-black mt-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Create Advert</h1>
+                        <form action="">
+                            <div>
+                                Title: <input type="text" class="title">
+                            </div>
+                            <div>
+                                Description: <input type="text" class="description">
+                            </div>
+                            <div>
+                                Contact: <input type="text" class="contact">
+                            </div>
+
+                            <button type="submit">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="updateAdvertPage">
+            <div class="container jumbotron bg-light text-black mt-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Update Advert</h1>
+                        <form class="updateForm" action="">
+                            <input type="hidden" class="advertId">
+                            <div>
+                                Title: <input type="text" class="title">
+                            </div>
+                            <div>
+                                Description: <input type="text" class="description">
+                            </div>
+                            <div>
+                                Contact: <input type="text" class="contact">
+                            </div>
+                            <button type="submit">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div  class="page" id="signUpPage">
+            <div class="container jumbotron bg-light text-black mt-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Create Account</h1>
+                        <form action="">
+                            <div>
+                                Email: <input type="email" class="email">
+                            </div>
+                            <div>
+                                Username: <input type="text" class="userName">
+                            </div>
+                            <div>
+                                Password: <input type="password" class="password">
+                            </div>
+                            
+                            <button type="submit">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div  class="page" id="loginPage">
+            <div class="container jumbotron bg-light text-black mt-4">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h1>Login</h1>
+                        <form action="">
+                            <div>
+                                Username: <input type="text" class="userName">
+                            </div>
+                            <div>
+                                Password: <input type="password" class="password">
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="error400Page">
+            <h1>Bad request</h1>
+        </div>
+        <div class="page" id="error401Page">
+            <h1>Unauthorized</h1>
+        </div>
+        <div class="page" id="error404Page">
+            <h1>Not found</h1>
+        </div>
+        <div class="page" id="error500Page">
+            <h1>Internal server error</h1>
+        </div>
+    </main>
+
 </body>
+
 </html>

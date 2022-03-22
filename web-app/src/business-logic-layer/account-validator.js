@@ -8,6 +8,8 @@ module.exports = function createAdvert_router({ accountRepository }) {
     return {
         getErrorsNewAccount(newUser, callback) {
 
+            //validera email
+            
             const errors = []
         
             if (!newUser.hasOwnProperty("userName")) {

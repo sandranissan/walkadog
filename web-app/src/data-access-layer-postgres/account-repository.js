@@ -31,7 +31,7 @@ module.exports = function createPostgresAccountRepository(){
 		},*/
 
         logInCredential(knownUser, callback){
-            users.findAll({
+            users.findAll({ 
                 where: {
                     userName: knownUser.userName,
                     userPassword: knownUser.userPassword

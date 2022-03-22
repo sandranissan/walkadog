@@ -17,4 +17,4 @@ db.photos = require("./sequelize-model").photos(sequelize, Sequelize)
 
 db.photos.belongsTo(db.adverts, {foreignKey: 'advert_Id'}) // FK
 
-module.exports = db
+module.exports = db  
