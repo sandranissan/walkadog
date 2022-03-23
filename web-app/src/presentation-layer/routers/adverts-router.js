@@ -6,6 +6,7 @@ function advertSessionValidater(request,response,next){
     if(!request.session.isLoggedIn){
         const error= ["please log in first!!"]
         console.log("------------------------")
+        console.log("inte inloggad!")
         next(error)
     }
     else{
@@ -83,12 +84,13 @@ module.exports = function createAdvert_router({ advertManager }) {
         }
         // console.log(newAdvert)
         advertManager.createAdvert(newAdvert, function (errors, advert) {   // newAdvert' is declared but its value is never read. VARFÖR
-            // console.log(newAdvert) 
+            console.log(newAdvert) 
 
             if (0 < errors.length) {
                 response.redirect("/adverts")
             }
             else {
+                console.log("redirecting to /adverts")
                 response.redirect("/adverts")
                 //  photoManager.uploadPhoto(newPhoto)
 

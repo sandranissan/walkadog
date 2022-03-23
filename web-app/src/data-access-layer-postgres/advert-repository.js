@@ -18,7 +18,7 @@ module.exports = function createPostgresAdvertRepository() {
                     as: 'advert',
                     required: false
                 }
-
+ 
             })
                 .then(allAdverts => {
                     callback([], allAdverts)
@@ -53,7 +53,7 @@ module.exports = function createPostgresAdvertRepository() {
          },*/
 
         createAdvert(newAdvert, callback) {
-            const seqCreate = SequelizeModels.newAdvert.create({
+            db.adverts.create({
                 advertName: newAdvert.advertName,
                 advertDescription: newAdvert.advertDescription,
                 contact: newAdvert.contact
@@ -83,13 +83,11 @@ module.exports = function createPostgresAdvertRepository() {
                     callback([], model)
 
                 }).catch((error) => {
-                    console.log(error)
-                    callback(error, null)
+                    console.log("hejhejhallåååååå")
+                    callback(error, null)  
                 })
-
-
             }).catch((error) => {
-                callback(error)
+                console.log("hejhejhej")
 
             })
 
@@ -112,11 +110,6 @@ module.exports = function createPostgresAdvertRepository() {
 
 
         },
-
-
-
-
-
 
 
 

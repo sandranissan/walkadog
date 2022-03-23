@@ -14,18 +14,26 @@ module.exports = function ({ accountRepository, accountValidator, hashManager  }
 		},
 		logInCredentials(knownUser, callback){
 
-			accountRepository.logInCredentials(knownUser, function(errors, userPlainTextPassword, userCredentials) {
-				hashManager.comparedPassword(userPlainTextPassword, userCredentials.userPassword,function(result){
-					if(result){
-						callback([],userCredentials)
-					}else {
-						callback(["wrong password"], null)
-					}
-				})
+			accountRepository.logInCredentials(knownUser, function(errors ,userPlainTextPassword,userCredentials) { 
+				console.log("yyyyyy",userCredentials)
+				if (!errors){
+					console.log(errors , "HAHAH") // fångar ett error häääääär! WHYY!?
+				} else{ 
+					console.log("GUUUUUUUUUUD")
+					hashManager.comparedPassword(userPlainTextPassword, userCredentials.userPassword,function(result){
+						if(result){
+							callback([],userCredentials)
+						}else {
+							callback(["wrong password"], null)
+						}
+					})   
+
+				}
+			
 			})
-		}
+		} 
 
 	}
-
+  
 }
 

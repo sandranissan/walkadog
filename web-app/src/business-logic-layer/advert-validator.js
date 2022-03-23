@@ -35,9 +35,11 @@ module.exports = function createAdvert_router({ advertRepository }) {
             advertRepository.createAdvert(newAdvert, function(errors, newAdvert){
         
                 if(errors.length > 0) {
-        
+                    console.log("error!!!!!!!!!")
+                    callback(errors, null)
                 }
                 else {
+                    console.log("callback i advertValidator")
                     callback(errors, newAdvert)
         
                 }

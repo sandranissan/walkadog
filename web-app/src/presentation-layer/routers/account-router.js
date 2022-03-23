@@ -28,7 +28,7 @@ module.exports = function createAccount_router({ accountManager }) {
     router.post('/', function (request, response) {
 
         const knownUser = {
-            userName: request.body.username,
+            userName: request.body.userName,
             userPassword: request.body.userPassword
         }
 
@@ -44,7 +44,7 @@ module.exports = function createAccount_router({ accountManager }) {
                 request.session.isLoggedIn = true
 
                 if (knownUser.isAdmin == 1) {
-                    request.session.isAdmin = true
+                    request.session.isAdmin = true 
 
                 } else {
                     request.session.isAdmin = false
