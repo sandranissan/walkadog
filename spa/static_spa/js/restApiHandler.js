@@ -1,3 +1,5 @@
+
+
 const restApi = "http://localhost:8080/rest/"
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -6,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function(){
     signUpForm.addEventListener("submit", function(event){
         event.preventDefault()
 
-        const userName = document.querySelector("signInPage .userName").value
-        const userEmail = document.querySelector("signInPage .email").value
-        const userPassword = document.querySelector("signInPage .password").value
+        const userName = document.getElementById("signUp_username").value
+        const userEmail = document.getElementById("signUp_email").value
+        const userPassword = document.getElementById("signUp_password").value
 
-        const newAccount = {
+        const newUser = {
             userName,
             userEmail,
             userPassword,
@@ -18,14 +20,44 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         fetch(
-            
-        )
-
+            "http://localhost:8080/rest/signUp",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newUser)
+            }
+        ).then(response=>{
+            if(response.status == 201){
+                return response.json()
+            }else{
+                window.location.replace("/error"+ response.status)
+            }
+        })
+        .then(body=>{
+            login(body)
+            window.location.replace("/")
+        })
+        .catch(error =>{
+            console.log()
+            console.log(error)
+            window.location.replace("/error/500")
+        })
 
     })
 
 
 
-
-
 })
+
+function loadAllAdverts(){
+
+}
+//används för både att hämta en advert, samt uppdatera den
+function loadAdvertById(advertId){
+
+}
+
+function deleteAdvert(advertId){
+
+}

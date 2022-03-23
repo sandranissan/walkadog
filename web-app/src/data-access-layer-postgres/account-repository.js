@@ -6,7 +6,7 @@ module.exports = function createPostgresAccountRepository(){
 
         getAllAccounts(callback){
             db.users.findAll({
-                order: [ userName , 'ASC']
+                order: [ userName , 'ASC'] 
             }) // constarins här
             .then(allUsers, () => {
                 callback([], users)
@@ -30,7 +30,7 @@ module.exports = function createPostgresAccountRepository(){
 
 		},*/
 
-        logInCredential(knownUser, callback){
+        logInCredentials(knownUser, callback){
             users.findAll({ 
                 where: {
                     userName: knownUser.userName,
@@ -40,7 +40,7 @@ module.exports = function createPostgresAccountRepository(){
                 callback([], foundUser[0])
                 ).catch(userError => {
                     console.log("fel i logInCredentials"),
-                    callback(userError,[])
+                    callback(userError,[]) 
                 }
                 )
 
