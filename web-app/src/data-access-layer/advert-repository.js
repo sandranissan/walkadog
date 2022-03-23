@@ -32,8 +32,7 @@ module.exports = function createAdvert_repository() {
             })
 
         },
-        //andvänds i Rest Api
-        getAdvertsByUserId(userId, callback){
+        getAdvertsByUserId(userId, callback){ 
             const query = 'SELECT * FROM adverts WHERE userId = ?'
             const value = [userId]
 
