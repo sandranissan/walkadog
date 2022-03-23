@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS photos(
     photoId INT AUTO_INCREMENT PRIMARY KEY,
     nameOfFile VARCHAR(100),
     advert INT,
-    FOREIGN KEY (advert) REFERENCES adverts(advertId) ON DELETE CASCADE,
+    FOREIGN KEY (advert) REFERENCES adverts(advertId) ON DELETE CASCADE, 
     photoDescription VARCHAR(100) 
 );
 

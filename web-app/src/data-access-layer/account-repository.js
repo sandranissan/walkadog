@@ -20,7 +20,7 @@ module.exports = function createAccount_repository() {
 
 		logInCredentials(knownUser, callback) {
 
-			const query = `SELECT * FROM users WHERE userName = ?`
+			const query = `SELECT * FROM users WHERE userName = ? LIMIT 1`
 			const values = [knownUser.userName]
 
 			db.query(query, values, function (error, resultUser) {
@@ -29,13 +29,16 @@ module.exports = function createAccount_repository() {
 					userError.push("User not found.")
 				}
 				if (error || userError.length > 0) {
+					console.log(userError)
 					console.log(error, "error i account-repository.js")
 					callback(resultUser, [])
+					
 				} else {
 					callback([], knownUser.userPassword, resultUser[0])
+
 				}
 			})
-		},
+		}, 
 
 
 		createAccount (newUser, callback) {

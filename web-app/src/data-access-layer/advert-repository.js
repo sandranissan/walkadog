@@ -42,7 +42,7 @@ module.exports = function createAdvert_repository() {
                 }else {
                     callback([],userAdverts)
                 }
-            })
+            })  
 
         },
         //Används i rest Api
