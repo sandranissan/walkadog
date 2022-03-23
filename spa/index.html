@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>SPA</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./navigationSpa.js"></script>
+
+</head>
+
+<body>
+    <header>
+        Walk my dog!
+    </header>
+
+    <nav>
+        <ul id="nav-ul">
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/logout">Logout</a></li>
+            <li><a href="/signUp">Sign up</a></li>
+            <li><a href="/createAdvert">Create Advert</a></li>
+            <li><a href="/adverts">Adverts</a></li>
+        
+        </ul>
+    </nav>
+
+    <main>
+
+        <div class="page" id="home-Page">
+            <h1>Start page</h1>
+            <p>This is the start-page of walk my dog</p>
+        </div>
+
+        <div class="page" id="login-page">
+            <h1>Login</h1>
+            <form action="/rest/login" method="POST" id="logInForm">
+                <input type="text" placeholder="Username" name="username" id="login_username" required>
+                <input type="password" placeholder="Password" name="password" id="login_password" required>
+                <div class="padding">
+                    <input type="submit" role="button" value="Sign In">
+                </div>
+            </form>
+        </div>
+
+        <div class="page" id="sign-up-page">
+            <h1>Create Account</h1>
+            <form action="/rest/signUp" method="POST" id="signUpForm">
+                <input type="text" placeholder="Username" name="username" id="signUp_username" required>
+                <input type="email" placeholder="Email" name="email" id="signUp_email" required>
+                <input type="password" placeholder="Password" name="password" id="signUp_password" required>
+                <div class="padding">
+                    <input type="submit" role="button" value="Sign Up">
+                </div>
+            </form>
+        </div>
+
+        
+
+
+        <div class="page" id="create-advert-page">
+            <h1>Create Advert</h1>
+            <form action="/rest/create-advert" method="POST" id="createAdvertForm">
+                <input type="text" placeholder="Name" name="name" id="advert_create_name" required>
+                <input type="text" placeholder="Description" name="description" id="advert_create_description" required>
+                <input type="text" placeholder="Contact" name="contact" id="advert_create_contact" required>
+                <div class="padding">
+                    <input type="submit" role="button" value="Create Advert">
+                </div>
+            </form>
+        </div>
+
+
+        <div class="page" id="my-adverts-page">
+            <h1>Adverts</h1>
+            <ul id="my-adverts">
+
+            </ul>
+        </div>
+
+        <div class="page" id="advert-Page">
+            <h1>Advert</h1>
+            <div>Name <span class="advert-name"></span></div>
+            <div>Description: <span class="advert-description"></span></div>
+            <div>Contact: <span class="advert-contact"></span></div>
+            <ul id="allCrud-links">
+
+            </ul>
+        </div>
+
+
+
+        <div class="page" id="update-advert-page">
+            <h1>Update Advert</h1>
+            <form action="/rest/:advertId" method="PUT" id="updateAdvertForm">
+                <div class="">
+                    <input type="text" name="update_name" id="advert_update_name" placeholder="New Name">
+                </div>
+                <div class="padding">
+                    <input type="text" name="update_description" id="advert_update_description"
+                        placeholder="New Description">
+                </div>
+                <div class="padding">
+                    <input type="text" name="update-contact" id="advert_update_contact" placeholder="Update Contact">
+                </div>
+                <div class="padding">
+                    <input type="submit" value="Update Advert">
+                </div>
+            </form>
+        </div>
+
+        <div class="page" id="delete-advert-page">
+            <h1>Delete advert?</h1>
+            <h3>Are you really sure you want to delete this advert?</h3>
+            <form action="/rest/:advertId" method="DELETE" id="deleteAdvertForm">
+                <div>
+                    <input type="submit" value="Yes" id="delete_advert_yes_button">
+                </div>
+                <div>
+                    <input type="submit" value="No" id="delete_advert_no_button">
+                </div>
+            </form>
+        </div>
+
+
+        <div class="page" id="not-found-page">
+            <h1>Page not found</h1>
+            <p>This is the not found page</p>
+        </div>
+
+
+
+    </main>
+
+</body>
+
+</html>

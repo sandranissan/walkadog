@@ -37,7 +37,7 @@ module.exports = function createPostgresAccountRepository(){
                     userPassword: knownUser.userPassword
                 }
             }).then(foundUser =>
-                callback([], foundUser[0])
+                callback([], foundUser[0].dataValues)
                 ).catch(userError => {
                     console.log("fel i logInCredentials"),
                     callback(userError,[]) 

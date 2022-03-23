@@ -60,7 +60,7 @@ module.exports = function ({ accountManager, advertManager }) {
     router.use(function (request, response, next) {
         console.log(request.method, request.url)
         next()
-    })
+    }) 
 
     //hämtar alla konton
     router.get("/", verifyToken, function (request, response) {
@@ -110,7 +110,6 @@ module.exports = function ({ accountManager, advertManager }) {
     //skapa user
     router.post("/signUp", function(request, response){
         const newUser = {
-            //grant_type?
             userName: request.body.userName,
             userEmail: request.body.userEmail,
             userPassword: request.body.userPassword
@@ -139,34 +138,38 @@ module.exports = function ({ accountManager, advertManager }) {
     })
     //logga in user
     router.post("/tokens", function(request,response){
-        const knownUser = {
-            grant_type: request.body.grant_type,
-            userName: request.body.userName,
-            userPassword: request.body.userPassword
-        }
+        const grant_type = request.body.grant_type
 
-        if(knownUser.grant_type != "userPassword"){
-            response.status(400).json({error: "incorrect-grant-type"})
+        if(grant_type == "userPassword") {
 
-        }
-
-        accountManager.logInCredentials(knownUser, function (errors, user){
-            if(errors.length > 0){
-                response.status(400).json(errors)
-            }else {
-                const payload = {id: user.userId, name: user.userName}
-                jwt.sign(payload, privateSecret, function(error, token){
-                    if(error){
-                        response.status(500).end()
-                    }else{
-                        response.status(200).json({
-                            accessToken: token,
-                            user_info: user
-                        })
-                    }
-                })
+            const knownUser = {
+                userName: request.body.userName,
+                userPassword: request.body.userPassword
             }
-        })
+
+            accountManager.logInCredentials(knownUser, function (errors, user){
+                if(errors.length > 0){
+                    response.status(401).json(errors)
+                }else {
+                    const payload = {userId: user.userId, userName: user.userName, is_logged_in: true}
+                    jwt.sign(payload, privateSecret, function(error, token){
+                        if(error){
+                            console.log(error)
+                            response.status(401).json("Invalid client error")
+                        }else{
+                            response.status(200).json({
+                                "access_token": token,
+                                userId: user.userId
+                                
+                            })
+                        }
+                    })
+                }
+            })
+
+        }
+
+        
     })
 
     router.get("/adverts/:id", verifyToken, function(request,response){
