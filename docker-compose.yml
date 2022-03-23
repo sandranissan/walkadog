@@ -38,6 +38,8 @@ services:
       - ./spa/static_spa/index.html:/data/www/index.html
       - ./spa/static_spa/js/navigationSpa.js:/data/www/navigationSpa.js
       - ./spa/static_spa/css/style.css:/data/www/style.css
+      - ./spa/static_spa/js/restApiHandler.js:/data/www/restApiHandler.js
+
 
 
   

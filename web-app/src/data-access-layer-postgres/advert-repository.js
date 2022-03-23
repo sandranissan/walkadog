@@ -20,6 +20,14 @@ module.exports = function createPostgresAdvertRepository() {
                 )
         },
 
+        // deleteAdvertById(advertId,callback){
+        //     db.adverts.destroy({
+
+        //     })
+
+
+        // },
+
 
 
 
@@ -47,7 +55,11 @@ module.exports = function createPostgresAdvertRepository() {
 
 
         createAdvert(newAdvert, callback) {
+<<<<<<< HEAD
             const seqCreate = db.newAdvert.create({
+=======
+            const seqCreate = SequelizeModels.newAdvert.create({
+>>>>>>> 4a589984430a02e36de562d16b89f57b9561f186
                 advertName: newAdvert.advertName,
                 advertDescription: newAdvert.advertDescription,
                 advertContact: newAdvert.advertContact

@@ -108,8 +108,9 @@ module.exports = function ({ accountManager, advertManager }) {
     // })
     
     //skapa user
-    router.post("/accounts", function(request, response){
+    router.post("/signUp", function(request, response){
         const newUser = {
+            //grant_type?
             userName: request.body.userName,
             userEmail: request.body.userEmail,
             userPassword: request.body.userPassword
@@ -181,7 +182,7 @@ module.exports = function ({ accountManager, advertManager }) {
         })
     })
 
-    router.post("/adverts", verifyToken, function(request, response){
+    router.post("/createAdverts", verifyToken, function(request, response){
         const newAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,

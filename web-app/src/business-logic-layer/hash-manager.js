@@ -9,6 +9,18 @@ module.exports = function ({}) {
             return hashedPassword
 
         },
+
+        comparedPassword(userPlainTextPassword, fetshedPassword, callback){
+            bcrypt.compare(userPlainTextPassword, fetshedPassword, function(error, isValid){
+                if(error){
+                    //todo
+                }else {
+                    callback(isValid)
+                }
+            })
+
+        }
+
     }
 
 }

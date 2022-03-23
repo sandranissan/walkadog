@@ -124,10 +124,6 @@ a.buttonAddAdvert:active{
   
 }
 
-
-
-
-
 .col2{
   padding-top: 40%;
 }
@@ -219,3 +215,13 @@ p {
    font-size:xx-large
    
    }
+.user-img{
+  height: 500px;
+  width: 500px;
+  overflow: hidden;
+}
+.user-img img{
+  height: auto;
+  width: 500px;
+
+}
