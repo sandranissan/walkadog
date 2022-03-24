@@ -17,19 +17,19 @@ module.exports = function ({ accountRepository, accountValidator, hashManager  }
 			accountRepository.logInCredentials(knownUser, function(errors ,userPlainTextPassword,userCredentials) { 
 				console.log("yyyyyy",userCredentials)
 				if (!errors){
-					console.log(errors , "HAHAH") // fångar ett error häääääär! WHYY!?
+					console.log(errors , "HAHAH") 
 				} else{ 
 					console.log("GUUUUUUUUUUD")
 					hashManager.comparedPassword(userPlainTextPassword, userCredentials.userPassword,function(result){
 						if(result){
 							callback([],userCredentials)
 						}else {
-							callback(["wrong password"], null)
+							callback(["wrong username or password"], null)
 						}
 					})   
 
 				}
-			
+			 
 			})
 		} 
 

@@ -72,7 +72,7 @@ module.exports = function createPostgresAdvertRepository() {
                     photoDescription: newAdvert.photoDescription
 
 
-                }).then(newPhoto => {
+                }).then(newPhoto => {   
                     console.log("--------------")
                     console.log(newPhoto.dataValues)
                     const model = {
@@ -112,13 +112,7 @@ module.exports = function createPostgresAdvertRepository() {
         },
 
 
-
-
- 
-
-
-
-        /*getSpecificAdvert(advertId, callback) {
+        getSpecificAdvert(advertId, callback) {
             const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE advertId = ?'
             const values = [advertId]
 
@@ -131,11 +125,7 @@ module.exports = function createPostgresAdvertRepository() {
                 }
             })
 
-        },
-        */
-
-
-
+        }
 
 
     }
