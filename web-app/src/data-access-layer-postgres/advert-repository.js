@@ -72,7 +72,7 @@ module.exports = function createPostgresAdvertRepository() {
                     photoDescription: newAdvert.photoDescription
 
 
-                }).then(newPhoto => {
+                }).then(newPhoto => {   
                     console.log("--------------")
                     console.log(newPhoto.dataValues)
                     const model = {
@@ -110,7 +110,6 @@ module.exports = function createPostgresAdvertRepository() {
 
 
         },
-
 
 
         getSpecificAdvert(advertId, callback) {

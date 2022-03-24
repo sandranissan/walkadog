@@ -3,7 +3,7 @@ const awilix = require('awilix');
 const dataLPath = 'data-access-layer'
 const dataLPathPost = 'data-access-layer-postgres'
 
-const DAL = dataLPathPost
+const DAL = dataLPath 
 
 const container = awilix.createContainer()
 
@@ -21,7 +21,7 @@ container.register(
     'accountManager', 
     awilix.asFunction(require('../business-logic-layer/account-manager.js'))
 )
-
+ 
 container.register(
     'accountValidator',
     awilix.asFunction(require('../business-logic-layer/account-validator.js'))
