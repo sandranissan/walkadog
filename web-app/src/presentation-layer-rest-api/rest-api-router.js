@@ -14,7 +14,7 @@ module.exports = function ({ accountManager, advertManager }) {
 
    //verifyToken middleware function
    function verifyToken(request, response, next) {
-    //Get auth header value
+    //Get auth header value 
     const bearerHeader = request.headers['authorization']
     //Kollar om bearer är undefined
     if(typeof bearerHeader != 'undefined') {
@@ -76,7 +76,7 @@ module.exports = function ({ accountManager, advertManager }) {
     })
 
     //hämtar alla adverts
-    router.get("/adverts/:id", verifyToken, function(request,response){
+    router.get("/adverts/:id", function(request,response){
         const user_id = request.params.id
         console.log(request.headers)
         advertManager.getAdvertsByUserId(user_id, function(error, adverts){
@@ -134,7 +134,7 @@ module.exports = function ({ accountManager, advertManager }) {
     //logga in user
     router.post("/login", function(request,response){
         const grant_type = request.body.grant_type
-
+ 
         if(grant_type == "userPassword") {
 
             const knownUser = {

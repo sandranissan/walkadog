@@ -1,9 +1,9 @@
 //const restApi = "http://localhost:8080/rest/"
 
+
 let access_token = ""
-let user_id = ""
+let user_id = "5"
 let is_logged_in = false
-let userId = ""
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -55,7 +55,7 @@ function showPage(url){
 
         case '/adverts':
             nextPageId = 'adverts-page'
-            fetchAdvertsPage(userId)
+            fetchAdvertsPage(user_id)
             break
         
         case '/login':
@@ -98,9 +98,9 @@ function showPage(url){
             break
         
         default:
-            if(url.startsWith("/adverts/")){
+            if(url.startsWith("/advert/")){
                 const[empty,advert,id] = url.split("/")
-                nextPageId = 'advert-Page'
+                nextPageId = 'advert-page'
                 hideCurrentPage()
                 fetchAdvertPage(id)
             }
@@ -154,6 +154,47 @@ function showPage(url){
 }
 
 
+async function fetchAdvertsPage(userId) {
+    const response = await fetch("http://localhost:3000/rest/adverts/" + userId , {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json"
+
+        }
+        
+    })
+    //adverts innehåller resultatet från restApin i json format
+    const adverts = await response.json()
+
+    const yourAdvertsUl = document.getElementById('my-adverts')
+	yourAdvertsUl.innerText = ""
+
+	for (const advert of adverts) {
+
+		const li = document.createElement('li') 
+
+		const anchor = document.createElement('a')
+		anchor.innerText = advert.advertName + ": " + advert.advertDescription
+
+		anchor.setAttribute('href', "/advert/" + advert.advertId)
+		anchor.addEventListener('click', function (event) {
+			event.preventDefault()
+
+			const url = anchor.getAttribute('href')
+
+			history.pushState(null, "", url)
+
+			hideCurrentPage()
+			showPage(url)
+		})
+		li.appendChild(anchor)
+
+		yourAdvertsUl.appendChild(li)
+
+	}
+
+
+}
 // async function fetchAdvertsPage(userId) {
 
 // 	const response = await fetch( 'http://localhost:3000/rest/adverts/' + userId, {
@@ -167,32 +208,6 @@ function showPage(url){
 
 // 	const adverts = await response.json()
 
-// 	const yourAdvertsUl = document.getElementById('my-adverts')
-// 	yourAdvertsUl.innerText = ""
-
-// 	for (const advert of adverts) {
-
-// 		const li = document.createElement('li')
-
-// 		const anchor = document.createElement('a')
-// 		anchor.innerText = advert.advertName + ": " + advert.advertDescription
-
-// 		anchor.setAttribute('href', "/advert/" + advert.advertId)
-// 		anchor.addEventListener('click', function (event) {
-// 			event.preventDefault()
-
-// 			const url = anchor.getAttribute('href')
-
-// 			history.pushState(null, "", url)
-
-// 			hideCurrentPage()
-// 			showPage(url)
-// 		})
-// 		li.appendChild(anchor)
-
-// 		yourAdvertsUl.appendChild(li)
-
-// 	}
 
 // }
 // async function fetchLogin(userName,userPassword){

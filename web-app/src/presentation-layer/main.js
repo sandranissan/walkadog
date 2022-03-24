@@ -3,7 +3,7 @@ const awilix = require('awilix');
 const dataLPath = 'data-access-layer'
 const dataLPathPost = 'data-access-layer-postgres'
 
-const DAL = dataLPathPost
+const DAL = dataLPath
 
 const container = awilix.createContainer()
 
