@@ -35,7 +35,6 @@ module.exports = function createPostgresAccountRepository() {
                 where: {
                     userName: knownUser.userName
                 }
-<<<<<<< HEAD
             }).then(foundUser => {
                 console.log(foundUser.dataValues)
                 callback([], knownUser.userPassword, foundUser[0].dataValues)
@@ -44,22 +43,12 @@ module.exports = function createPostgresAccountRepository() {
                 console.log("Fel i logInCredentials")
                 callback(userError, [])
             })
-=======
-            }).then(foundUser =>
-                callback([], foundUser[0].dataValues)
-                ).catch(userError => {
-                    console.log(knownUser.userPassword),
-                    console.log("Fel i logInCredentials")
-                    callback(userError,[])
-                }
-                ) 
->>>>>>> fdf806dee33616f75b1a1d51c2eed8955c60470a
-
+ 
         },
 
         createAccount(newUser, callback) {
             db.users.create({
-                userName: newUser.userName,
+                userName: newUser.userName, 
                 userEmail: newUser.userEmail,
                 userPassword: newUser.userPassword
                 //IsAdmin ??
