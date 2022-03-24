@@ -12,30 +12,31 @@ function validationsErrors() {
 
 module.exports = function ({ accountManager, advertManager }) {
 
-    function verifyToken(request, response, next) {
-        try{
-            const authHeader = request.get("authorization")
-            const accessToken = authHeader.substr("Bearer ".length)
-
-            jwt.verify(accessToken, privateSecret, function(error, authData){
-                if(error){
-                    response.sendStatus(403)
-                }else {
-                    console.log(authData)
-                    next()
-                }
-            })
-
-        }catch(error){
-            response.status(400).end()
-            return
-        }
+   //verifyToken middleware function
+   function verifyToken(request, response, next) {
+    //Get auth header value
+    const bearerHeader = request.headers['authorization']
+    //Kollar om bearer är undefined
+    if(typeof bearerHeader != 'undefined') {
+        //Split at the space, the string looks like this "Bearer XXX" where XXX is the token
+        const bearer = bearerHeader.split(' ')
+        //hämta token ifrån split Arrayen, "Bearer" blir på [0], XXX på [1]
+        const bearerToken = bearer[1]
+        //Verify the token
+        jwt.verify(bearerToken, privateSecret, function (error, authData) { // här skickas token och secretKey med och kollar så det stämmer.
+            if(error) {
+                response.sendStatus(403)
+            } else {
+                request.body.userInfo = authData 
+                next()
+            }
+        })
+    } else {
+        // Forbidden 
+        response.sendStatus(403)
     }
-
+}
     const router = express.Router()
-
-
-
     router.use(bodyParser.json())
     router.use(bodyParser.urlencoded({
         extended: false
@@ -74,17 +75,22 @@ module.exports = function ({ accountManager, advertManager }) {
         })
     })
 
-        //hämtar alla adverts
-        router.get("/adverts", verifyToken, function(request,response){
-            console.log(request.headers)
-            advertManager.getAllAdverts(function(errors, adverts){
-                if(errors.length > 0){ 
-                    response.status(400).json(errors)
-                } else{ 
-                    response.status(200).json(adverts) }
-            })
-    
+    //hämtar alla adverts
+    router.get("/adverts/:id", verifyToken, function(request,response){
+        const user_id = request.params.id
+        console.log(request.headers)
+        advertManager.getAdvertsByUserId(user_id, function(error, adverts){
+            if (error.length > 0) {
+                response.status(400).json(error)
+            } else {
+                if (adverts) {
+                    response.status(200).json(adverts)
+                } else {
+                    response.status(404).end()
+                }
+            }
         })
+    })
 
     // //hämtar specifikt konto
     // router.get("/:id", function (request, response) {
@@ -119,25 +125,14 @@ module.exports = function ({ accountManager, advertManager }) {
             if(errors.length > 0){
                 response.status(400).json(errors)
             } else {
-                const payload = {id: user.userId, Name: user.userName }
-                jwt.sign(payload, privateSecret, function(error, token){
-                    if(error){
-                        response.status(500).end()
-                    }else{
-                        response.setHeader("Location", "/" + user)
-                        response.status(201).json({
-                            accessToken: token,
-                            user_info:user
-                        })
-
-                    }
-                }) 
+                response.setHeader("Location", "/" + user)
+                response.status(201).json("user was created")
             }
         })
 
     })
     //logga in user
-    router.post("/tokens", function(request,response){
+    router.post("/login", function(request,response){
         const grant_type = request.body.grant_type
 
         if(grant_type == "userPassword") {
@@ -148,9 +143,7 @@ module.exports = function ({ accountManager, advertManager }) {
             }
 
             accountManager.logInCredentials(knownUser, function (errors, user){
-                if(errors.length > 0){
-                    response.status(401).json(errors)
-                }else {
+                if(user){
                     const payload = {userId: user.userId, userName: user.userName, is_logged_in: true}
                     jwt.sign(payload, privateSecret, function(error, token){
                         if(error){
@@ -164,8 +157,14 @@ module.exports = function ({ accountManager, advertManager }) {
                             })
                         }
                     })
+                    
+                }else {
+                    response.status(401).json(errors)
                 }
             })
+
+        }else{
+            response.status(400).json({ error: "unspported_grant_type"})
 
         }
 

@@ -1,15 +1,23 @@
-
+ body{
+    background-color: rgb(245, 243, 243);
+}
 
 .page{
-	display: none;
+    display: none;
 }
 
 .page.current-page{
-	display: block;
+    display: block;
 }
-body{
-    background-color: white;
-}
+
+.padding{
+    padding-top: 7px;
+} 
+
+
+ 
+
+
 
 header{
     text-align: center;
@@ -29,7 +37,15 @@ nav ul li{
 
 nav ul li a{
     color: rgb(194, 121, 218);
+    text-align: center;
     font-size: 200%;
     padding: 8px;
 }
 
+/* .page{
+	display: none;
+}
+
+.page.current-page{
+	display: block;
+}  */

@@ -1,8 +1,9 @@
-const restApi = "http://localhost:8080/rest/"
+//const restApi = "http://localhost:8080/rest/"
 
-let accessToken = ""
+let access_token = ""
+let user_id = ""
+let is_logged_in = false
 let userId = ""
-let isLoggedIn = false
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -18,20 +19,23 @@ document.addEventListener('DOMContentLoaded', function () {
 			history.pushState(null, "", url)
 
 			hideCurrentPage()
-			updateNav(isLoggedIn)
 			showPage(url)
 		})
 	}
-
+    //updateNav(isLoggedIn)
 	showPage(location.pathname)
+
+    const loginButton = document.body.getElementById('login_button')
+    loginButton.addEventListener("click", function(event){
+        console.log("logga in?")
+    })
 
 })
 
-window.addEventListener('popstate', function () {
+window.addEventListener('popstate', function (event) {
+  
 
 	hideCurrentPage()
-    console.log("pop")
-	updateNav(isLoggedIn)
 	showPage(location.pathname)
 
 })
@@ -48,18 +52,20 @@ function showPage(url){
         case '/':
             nextPageId = 'home-Page'
             break
+
+        case '/adverts':
+            nextPageId = 'adverts-page'
+            fetchAdvertsPage(userId)
+            break
         
         case '/login':
             nextPageId = 'login-page'
 
-            const loginForm =  document.getElementById("logInform")
+            const loginForm = document.getElementById("logInForm")
             loginForm.addEventListener('submit', function(event){
                 event.preventDefault()
-
-                const userName = document.getElementById("login_username").value
-                const userPassword = document.getElementById("login_password").value
-                console.log("USERNAME:"+userName,"PASSWORD"+userPassword)
-                loginForm(userName,userPassword)
+                let url = "/login"
+                fetchLogin()
             })
             break
         
@@ -73,16 +79,9 @@ function showPage(url){
 
             const signUpForm = document.getElementById("signUpForm")
             signUpForm.addEventListener("submit", function(event){
-                const signUpUserName = document.getElementById("signUp_username").value
-                const signUpEmail = document.getElementById("signUp_email").value
-                const signUpPassword = document.getElementById("signUp_password").value
-                const newUser = {
-                    userName: signUpUserName,
-                    userEmail: signUpEmail,
-                    userPassword: signUpPassword
-                }
-                console.log(newUser)
-                createNewUser(newUser) 
+                event.preventDefault()
+                let url = "/signUp"
+                fetchCreateNewUser() 
             })
             break
 
@@ -93,135 +92,197 @@ function showPage(url){
             createAdvertForm.addEventListener("submit", function(event){
                 event.preventDefault()
 
-                const createAdvertName = document.getElementById("advert_create_name").value
-                const createAdvertDescription = document.getElementById("advert_create_description").value
-                const createAdvertContact = document.getElementById("advert_create_contact").value
-                const newAdvert = {
-                    advertName: createAdvertName,
-                    advertDescription: createAdvertDescription,
-                    advertContact: createAdvertContact,
-        
-                }
-                console.log("*****************")
-                console.log(newAdvert)
-                createAdvert(newAdvert)
+                fetchCreateAdvert()
                 
             })
             break
         
         default:
             if(url.startsWith("/adverts/")){
-                const [empty, advert, userId] = url.split("/")
-                nextPageId = 'my-adverts-page'
-                fetchAdvertsPage(userId)
-            }
-            else if(url.startsWith("/advert/")){
                 const[empty,advert,id] = url.split("/")
                 nextPageId = 'advert-Page'
+                hideCurrentPage()
                 fetchAdvertPage(id)
             }
-            else if(url.startsWith("/updateAdvert/")){
-                const [empty, advert, id] = url.split("/")
-                nextPageId = 'update-advert-page'
+            // else if(url.startsWith("/updateAdvert/")){
+            //     const [empty, advert, id] = url.split("/")
+            //     nextPageId = 'update-advert-page'
 
-                const updateAdvertForm =  document.getElementById("updateAdvertForm")
-                updateAdvertForm.addEventListener("submit", function(event){
-                    event.preventDefault()
+            //     const updateAdvertForm =  document.getElementById("updateAdvertForm")
+            //     updateAdvertForm.addEventListener("submit", function(event){
+            //         event.preventDefault()
 
-                    const updateAdvertName = document.getElementById("advert_update_name").value
-                    const updateAdvertDescription = document.getElementById("advert_update_description").value
-                    const updateAdvertContact = document.getElementById("advert_update_contact").value
-                    const updatedAdvert = {
-                        advertName: updateAdvertName,
-                        advertDescription: updateAdvertDescription,
-                        advertContact: updateAdvertContact
+            //         const updateAdvertName = document.getElementById("advert_update_name").value
+            //         const updateAdvertDescription = document.getElementById("advert_update_description").value
+            //         const updateAdvertContact = document.getElementById("advert_update_contact").value
+            //         const updatedAdvert = {
+            //             advertName: updateAdvertName,
+            //             advertDescription: updateAdvertDescription,
+            //             advertContact: updateAdvertContact
             
-                    }
+            //         }
                     
-                    console.log(updatedAdvert)
-                    updateExistingAdvert(updatedAdvert)
-                })
+            //         console.log(updatedAdvert)
+            //         updateExistingAdvert(updatedAdvert)
+            //     })
 
-            }else if(url.startsWith("/deleteAdvert/")){
-                const [empty,advert,id] = url.split("/")
-                nextPageId = 'delete-advert-page'
+            // }else if(url.startsWith("/deleteAdvert/")){
+            //     const [empty,advert,id] = url.split("/")
+            //     nextPageId = 'delete-advert-page'
 
-                const advertDeleteForm = document.getElementById("deleteAdvertForm")
-                const yesButton = document.getElementById("delete_advert_yes_button")
-                const noButton = document.getElementById("delete_advert_no_button")
+            //     const advertDeleteForm = document.getElementById("deleteAdvertForm")
+            //     const yesButton = document.getElementById("delete_advert_yes_button")
+            //     const noButton = document.getElementById("delete_advert_no_button")
 
-                advertDeleteForm.addEventListener("submit", function(event){
-                    event.preventDefault()
+            //     advertDeleteForm.addEventListener("submit", function(event){
+            //         event.preventDefault()
 
-                    if(event.submitter.defaultValue == "No") {
-                        hideCurrentPage()
-                        showPage("/advert/" + id)
-                    } else {
-                        console.log("--------DELETED---------")
-                        deleteAdvert(id)
-                    }
-                })
+            //         if(event.submitter.defaultValue == "No") {
+            //             hideCurrentPage()
+            //             showPage("/advert/" + id)
+            //         } else {
+            //             console.log("--------DELETED---------")
+            //             deleteAdvert(id)
+            //         }
+            //     })
                 
-            }else {
+            else {
                 nextPageId = 'not-found-page'
             }
     }
     document.getElementById(nextPageId).classList.add('current-page')
 }
 
-async function loginForm(userName,userPassword){
-    const userModel = {
-        userName: userName,
-        userPassword: userPassword,
-        grant_type: "userPassword"
-    }
 
-    const response = await fetch(restApi + "tokens", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams(userModel)
-    })
+// async function fetchAdvertsPage(userId) {
 
-    switch(response.status){
-        case 200:
-            const responseBody = await response.json()
+// 	const response = await fetch( 'http://localhost:3000/rest/adverts/' + userId, {
+// 		method: "GET",
+// 		headers: {
+// 			"Content-type": "application/json",
+//             "Authorization": "Bearer " + access_token
+// 		}
+// 	})
+// 	// TODO: Check status code and act accordingly!
 
-            accessToken = responseBody.access_token
-            userId = responseBody.userId
-            isLoggedIn = true
+// 	const adverts = await response.json()
 
-            hideCurrentPage()
-            updateNavPage(isLoggedIn)
-            showPage('/')
+// 	const yourAdvertsUl = document.getElementById('my-adverts')
+// 	yourAdvertsUl.innerText = ""
 
-            break
+// 	for (const advert of adverts) {
 
-        case 401:
-            //todo error
-            break
+// 		const li = document.createElement('li')
+
+// 		const anchor = document.createElement('a')
+// 		anchor.innerText = advert.advertName + ": " + advert.advertDescription
+
+// 		anchor.setAttribute('href', "/advert/" + advert.advertId)
+// 		anchor.addEventListener('click', function (event) {
+// 			event.preventDefault()
+
+// 			const url = anchor.getAttribute('href')
+
+// 			history.pushState(null, "", url)
+
+// 			hideCurrentPage()
+// 			showPage(url)
+// 		})
+// 		li.appendChild(anchor)
+
+// 		yourAdvertsUl.appendChild(li)
+
+// 	}
+
+// }
+// async function fetchLogin(userName,userPassword){
+//     const userModel = {
+//         userName: userName,
+//         userPassword: userPassword,
+//         grant_type: "userPassword"
+//     }
+
+//     const response = await fetch('http://localhost:3000/rest/login', {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/x-www-form-urlencoded"
+//         },
+//         body: new URLSearchParams(userModel)
+//     })
+
+//     switch(response.status){
+//         case 200:
+//             const responseBody = await response.json()
+
+//             accessToken = responseBody.access_token
+//             userId = responseBody.userId
+//             is_logged_in = true
+
+//             hideCurrentPage()
+//             //updateNavPage(is_logged_in)
+//             showPage('/')
+
+//             break
+
+//         case 401:
+//             //todo error
+//             break
         
-        case 400:
-            //todo error
-            break
+//         case 400:
+//             //todo error
+//             break
 
-    }
-}
+//     }
+// }
 
-function logout() {
-	accessToken = ""
-	userId = ""
-	isLoggedIn = false
-	updateNav(isLoggedIn)
-	showPage('/')
-}
+// async function createNewUser(newUser) {
+// 	const response = await fetch('http://localhost:3000/rest/signUp', {
+// 		method: "POST",
+// 		headers: {
+// 			"Content-Type": "application/json"
+// 		},
+// 		body: JSON.stringify(newUser)
+// 	})
 
-// function updateNavPage(isLoggedIn) {
+// 	switch (response.status) {
+// 		case 201:
+// 			const createdUser = await response.json()
+
+// 			hideCurrentPage()
+// 			showPage('/login/'+createdUser)
+// 			break
+
+// 		case 401:
+// 			//handle error
+// 			break
+
+// 		case 400:
+// 			//handle error
+// 			break
+
+// 		case 500:
+// 			//handle error
+// 			break
+
+// 		default:
+// 			//handle error
+// 			break
+// 	}
+// }
+
+// function logout() {
+// 	access_token = ""
+// 	userId = ""
+// 	is_logged_in = false
+// 	//updateNavPage(is_logged_in)
+// 	showPage('/')
+// }
+
+// function updateNavPage(is_logged_in) {
 // 	const navUl = document.getElementById('nav-ul')
 // 	navUl.innerText = ""
 
-// 	if(isLoggedIn) {
+// 	if(is_logged_in) {
 // 		const navLinks = [
 // 			{link: "/", desc: "Start"},
 // 			{link: "/adverts/"+userId, desc: "Your adverts"},
