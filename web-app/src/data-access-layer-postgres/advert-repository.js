@@ -125,14 +125,10 @@ module.exports = function createPostgresAdvertRepository() {
                 }
             })
 
-        },
-
-
-
+        }
 
 
     }
 
 }
-
 
