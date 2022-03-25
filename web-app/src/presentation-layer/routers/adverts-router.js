@@ -1,15 +1,15 @@
 const express = require('express')
 const staticPath = require("path").resolve(__dirname, '..')
 
-function advertSessionValidater(request,response,next){
+function advertSessionValidater(request, response, next) {
 
-    if(!request.session.isLoggedIn){
-        const error= ["please log in first!!"]
+    if (!request.session.isLoggedIn) {
+        const error = ["please log in first!!"]
         console.log("------------------------")
         console.log("inte inloggad!")
         next(error)
     }
-    else{
+    else {
         next()
     }
 
@@ -22,7 +22,7 @@ module.exports = function createAdvert_router({ advertManager }) {
 
     router.get('/', function (request, response) {
         advertManager.getAllAdverts(function (errors, adverts) {
-            
+
             const model = {
                 errors: errors,
                 adverts: adverts
@@ -33,7 +33,7 @@ module.exports = function createAdvert_router({ advertManager }) {
 
     router.get('/specificAdvert/:Id', function (request, response) {
         advertId = request.params.Id
-        advertManager.getSpecificAdvert( advertId, function(errors, advert){
+        advertManager.getSpecificAdvert(advertId, function (errors, advert) {
             if (0 < errors.length) {
                 response.render("start.hbs")
             }
@@ -42,7 +42,7 @@ module.exports = function createAdvert_router({ advertManager }) {
             }
 
         })
-        
+
     })
 
     //kollar om jag är inloggad, om inte så kan jag inte skapa ett inlägg
@@ -59,10 +59,7 @@ module.exports = function createAdvert_router({ advertManager }) {
     router.post('/createAdvert', function (request, response) {
         const photoObject = request.files.photo
         const photoName = photoObject.name
-
         const path = `${staticPath}/public/uploads/${photoName}`
-        
-
         console.log(__dirname)
 
         photoObject.mv(path, function (err) {
@@ -70,30 +67,25 @@ module.exports = function createAdvert_router({ advertManager }) {
                 console.log("fel i mv")
             }
         })
-
         console.log(photoObject)
-
         const newAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,
             contact: request.body.advertContact,
-            photoDescription : request.body.photoDescription,
-            photoPath : photoName,
-            userId : request.session.userId
+            photoDescription: request.body.photoDescription,
+            photoPath: photoName,
+            userId: request.session.userId
 
         }
-        // console.log(newAdvert)
-        advertManager.createAdvert(newAdvert, function (errors, advert) {   // newAdvert' is declared but its value is never read. VARFÖR
-            console.log(newAdvert) 
+        advertManager.createAdvert(newAdvert, function (errors, advert) {
+            console.log(newAdvert)
 
-            if (0 < errors.length) {
-                response.redirect("/adverts")
+            if (errors.length > 0) {
+                response.render("start.hbs")
             }
             else {
                 console.log("redirecting to /adverts")
                 response.redirect("/adverts")
-                //  photoManager.uploadPhoto(newPhoto)
-
             }
 
         })

@@ -6,7 +6,6 @@ module.exports = function createPostgresAdvertRepository() {
 
     const Op = db.Sequelize.Op
     return {
-
         getAllAdverts(callback) {
             console.log("hämtar alla adverts")
             db.photos.findAll({
@@ -17,10 +16,12 @@ module.exports = function createPostgresAdvertRepository() {
                     model: db.adverts,
                     as: 'advert',
                     required: false
-                }
- 
+                },
+                raw: true,
+                nest: true
             })
                 .then(allAdverts => {
+                    console.log(allAdverts)
                     callback([], allAdverts)
                 }).catch((error) => {
                     console.log(error)
@@ -28,14 +29,21 @@ module.exports = function createPostgresAdvertRepository() {
                 })
         },
 
-        // deleteAdvertById(advertId,callback){
-        //     db.adverts.destroy({
 
-        //     })
+        
 
-
-        // },
-
+        deleteAdvertById(advertId, callback) {
+            try {
+            db.adverts.destroy({
+                where: {
+                    advert_Id : advertId
+                }   
+            })
+            callback([])
+            } catch(error){
+                callback(error,null)
+            }
+        },
 
 
         /* getAllAdverts(callback) {
@@ -72,7 +80,7 @@ module.exports = function createPostgresAdvertRepository() {
                     photoDescription: newAdvert.photoDescription
 
 
-                }).then(newPhoto => {   
+                }).then(newPhoto => {
                     console.log("--------------")
                     console.log(newPhoto.dataValues)
                     const model = {
@@ -84,51 +92,56 @@ module.exports = function createPostgresAdvertRepository() {
 
                 }).catch((error) => {
                     console.log("hejhejhallåååååå")
-                    callback(error, null)  
+                    callback(error, null)
                 })
             }).catch((error) => {
-                console.log("hejhejhej")
 
             })
 
         },
 
-        getSpecificAdvert(advertId, callback) {
-            db.adverts.findAll({
+        getSpecificAdvert(photoId, callback) {
+            console.log("--------.....---------.....-----------")
+            console.log(photoId)
+            db.photos.findAll({
                 where: {
-                    advertID: advertId
+                    photoId: photoId
                 },
-                raw: true
+                include: {
+                    model: db.adverts,
+                    as: 'advert',
+
+                },
+                raw: true,
+                nest: true
             }).then(specificAdvert => {
-                console.log("FUNKADE BRA")
+                specificAdvert = specificAdvert[0]
+                console.log("---------------")
+                specificAdvert.advertName = specificAdvert.advert["advertName"]
+                specificAdvert.advertDescription = specificAdvert.advert["advertDescription"]
+                specificAdvert.contact = specificAdvert.advert["contact"]
+                console.log(specificAdvert)
                 callback([], specificAdvert)
-                console.log("FUNKADE BRA")
             }).catch((error) => {
-                console.log("ERRRRROOOORRRRRR" + advertId)
                 callback(error, [])
             })
-
-
         },
 
 
-        getSpecificAdvert(advertId, callback) {
-            const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE advertId = ?'
-            const values = [advertId]
 
-            db.query(query, values, function (error, specificAdvert) {
-                console.log(specificAdvert)
-                if (error) {
-                    callback(['databaseError'], null)
-                } else {
-                    callback([], specificAdvert[0])
-                }
-            })
+     //   getSpecificAdvert(advertId, callback) {
+      //      const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE advertId = ?'
+      //      const values = [advertId]
 
-        }
-
-
+        //    db.query(query, values, function (error, specificAdvert) {
+          //      console.log(specificAdvert)
+            //    if (error) {
+           //         callback(['databaseError'], null)
+            //    } else {
+             //       callback([], specificAdvert[0])
+            //    }
+         //   })
+      //  }
     }
-
 }
 

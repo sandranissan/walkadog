@@ -19,11 +19,11 @@ module.exports = function createAdvert_repository() {
 
 
         getSpecificAdvert(advertId, callback) {
-            const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE advertId = ?'
+            const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE photoId = ?'
             const values = [advertId]
 
             db.query(query, values, function (error, specificAdvert) {
-                console.log(specificAdvert)
+                console.log(specificAdvert, "JOOOOOUIOÄÄÄÄÄ")
                 if (error) {
                     callback(['databaseError'], null)
                 } else {
@@ -47,13 +47,14 @@ module.exports = function createAdvert_repository() {
         },
         //Används i rest Api
         createAdvert(newAdvert, callback) {
-
+            console.log(newAdvert)
             const query = 'INSERT INTO adverts (advertName, advertDescription, contact, userId) VALUES (?,?,?,?)'
             const values = [newAdvert.advertName, newAdvert.advertDescription, newAdvert.advertContact, newAdvert.userId]
             const photoQuery = 'INSERT INTO photos (nameOfFile, advert, photoDescription) VALUES(?,?,?)'
 
             db.query(query, values, function (error, savedAdvert) {
                 if (error) {
+                    console.log(error)
                     console.log("error i advert")
                     callback(['databaseError'], null)
                 } else {

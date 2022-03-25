@@ -42,10 +42,11 @@ module.exports = function createPostgresAccountRepository() {
                 console.log(knownUser.userPassword),
                 console.log("Fel i logInCredentials")
                 callback(userError, [])
-            })
+            }) 
  
         },
 
+ 
         createAccount(newUser, callback) {
             db.users.create({
                 userName: newUser.userName, 
