@@ -15,20 +15,7 @@ module.exports = function createPostgresAccountRepository() {
                 })
         },
 
-        /*getAllAccounts (callback) {
-
-            const query = `SELECT * FROM users ORDER BY userName`
-            const values = []
-
-            db.query(query, values, function (error, users) {
-                if (error) {
-                    callback(['databaseError'], null)
-                } else {
-                    callback([], users)
-                }
-            })
-
-        },*/
+ 
 
         logInCredentials(knownUser, callback) {
             db.users.findAll({
@@ -52,9 +39,8 @@ module.exports = function createPostgresAccountRepository() {
                 userName: newUser.userName, 
                 userEmail: newUser.userEmail,
                 userPassword: newUser.userPassword
-                //IsAdmin ??
             }, {
-                fields: [ // fields ???
+                fields: [ 
                     'userName',
                     'userEmail',
                     'userPassword'

@@ -30,13 +30,12 @@ module.exports = function createPostgresAdvertRepository() {
         },
 
 
-        
-
-        deleteAdvertById(advertId, callback) {
+        deleteAdvertById(advertId, callback) {   
+            console.log("innanför DELETE")  
             try {
             db.adverts.destroy({
                 where: {
-                    advert_Id : advertId
+                    advert_Id: advertId
                 }   
             })
             callback([])
@@ -45,20 +44,6 @@ module.exports = function createPostgresAdvertRepository() {
             }
         },
 
-
-        /* getAllAdverts(callback) {
- 
-             const query = 'SELECT * FROM adverts JOIN photos ON photos.advert = adverts.advertId ORDER BY adverts.advertId DESC'
-             const values = []
- 
-             db.query(query, values, function (error, adverts) {
-                 if (error) {
-                     callback(['databaseError'], null)
-                 } else {
-                     callback([], adverts)
-                 }
-             })
-         },*/
 
         createAdvert(newAdvert, callback) {
             db.adverts.create({
@@ -101,8 +86,8 @@ module.exports = function createPostgresAdvertRepository() {
         },
 
         getSpecificAdvert(photoId, callback) {
-            console.log("--------.....---------.....-----------")
-            console.log(photoId)
+           // deleteAdvertById()
+            console.log("tagit bort ?????")
             db.photos.findAll({
                 where: {
                     photoId: photoId
@@ -116,7 +101,6 @@ module.exports = function createPostgresAdvertRepository() {
                 nest: true
             }).then(specificAdvert => {
                 specificAdvert = specificAdvert[0]
-                console.log("---------------")
                 specificAdvert.advertName = specificAdvert.advert["advertName"]
                 specificAdvert.advertDescription = specificAdvert.advert["advertDescription"]
                 specificAdvert.contact = specificAdvert.advert["contact"]
@@ -126,22 +110,6 @@ module.exports = function createPostgresAdvertRepository() {
                 callback(error, [])
             })
         },
-
-
-
-     //   getSpecificAdvert(advertId, callback) {
-      //      const query = 'SELECT * FROM adverts JOIN photos ON adverts.advertId = photos.advert WHERE advertId = ?'
-      //      const values = [advertId]
-
-        //    db.query(query, values, function (error, specificAdvert) {
-          //      console.log(specificAdvert)
-            //    if (error) {
-           //         callback(['databaseError'], null)
-            //    } else {
-             //       callback([], specificAdvert[0])
-            //    }
-         //   })
-      //  }
     }
 }
 
