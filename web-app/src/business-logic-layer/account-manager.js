@@ -9,10 +9,10 @@ module.exports = function ({ accountRepository, accountValidator, hashManager  }
 		createAccount(newUser, callback){
 			hashPassword = hashManager.getHashPassword(newUser.userPassword)
 			newUser.userPassword = hashPassword
-			accountValidator.getErrorsNewAccount(newUser, callback)
+			accountValidator.getErrorsNewAccount(newUser, callback)  
 		
 		},
-		logInCredentials(knownUser, callback){
+		logInCredentials(knownUser, callback){ 
 
 			accountRepository.logInCredentials(knownUser, function(errors ,userPlainTextPassword,userCredentials) { 
 				console.log("yyyyyy",userCredentials)
@@ -32,7 +32,9 @@ module.exports = function ({ accountRepository, accountValidator, hashManager  }
 			 
 			})
 		} 
-
+   
+		  
+		  
 	}
 
 } 

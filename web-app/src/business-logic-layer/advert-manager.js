@@ -24,6 +24,9 @@ module.exports = function createAdvert_router({ advertRepository, advertValidato
 		},
 		getAdvertsByUserId(userId, callback){
 			advertRepository.getAdvertsByUserId(userId, callback)
+		},
+		getAdvertById(advertId, callback){
+			advertRepository.getAdvertById(advertId, callback)
 		}
 
 

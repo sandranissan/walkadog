@@ -171,24 +171,29 @@ module.exports = function ({ accountManager, advertManager }) {
         
     })
 
-    router.get("/adverts/:id", verifyToken, function(request,response){
-        userId = request.params.id
- 
-        advertManager.getAdvertsByUserId(userId, function(errors, adverts){
-            if(errors.length > 0){
+    router.get("/advert/:id",  function(request, response) {
+
+        const advertId = request.params.id
+
+        advertManager.getAdvertById(advertId, function(errors, advert) {
+            if (errors.length > 0) {
                 response.status(400).json(errors)
-            }else {
-                response.status(200).json(adverts)
+            } else {
+                if (advert) {
+                    response.status(200).json(advert)
+                } else {
+                    response.status(404).end()
                 }
-            
+            }
         })
     })
 
-    router.post("/createAdverts", verifyToken, function(request, response){
+    router.post("/adverts/create", verifyToken, function(request, response){
         const newAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,
-            advertContact: request.body.advertContact,
+            advertContact: request.body.contact,
+            userId: request.body.userInfo.userId
 
         }
 
@@ -205,12 +210,12 @@ module.exports = function ({ accountManager, advertManager }) {
 
     })
 
-    router.put("/adverts/:id", verifyToken, function(request,response){
+    router.put("/advert/:id", verifyToken, function(request,response){
         const advertId = request.params.id
         const updatedAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,
-            advertContact: request.body.advertContact
+            contact: request.body.contact
 
         }
 
@@ -224,7 +229,7 @@ module.exports = function ({ accountManager, advertManager }) {
 
     })
 
-    router.delete("/adverts/:id", verifyToken, function(request,response){
+    router.delete("/advert/:id", verifyToken, function(request,response){
         advertId = request.params.id
 
         advertManager.deleteAdvertById(advertId, function(errors, adverts){

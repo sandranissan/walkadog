@@ -32,6 +32,19 @@ module.exports = function createAdvert_repository() {
             })
 
         },
+        //funktion till rest Apin som hämtar en specifik advert utan photos.
+        getAdvertById(advertId, callback){
+            const query = 'SELECT * FROM adverts WHERE advertId = ? LIMIT 1'
+            const values = [advertId]
+            console.log(query)
+            db.query(query, values, function(error, advert){
+                if(error) {
+                    callback(['databaseError'], null)
+                } else {
+                    callback([], advert[0])
+                }
+            })
+        },
         getAdvertsByUserId(userId, callback){ 
             const query = 'SELECT * FROM adverts WHERE userId = ?'
             const value = [userId]
@@ -67,7 +80,7 @@ module.exports = function createAdvert_repository() {
                         } else {
 
                             console.log("lade in foto")
-                            callback([], photoResult)
+                            callback([], photoResult) 
                         }
                     })
                 }
