@@ -1,4 +1,4 @@
-function users(sequelize, DataTypes){  // funk  skapa tabell users, kör sync för att synca till db, retunerar sedan tabllen till db.js 
+function users(sequelize, DataTypes) {  // funk  skapa tabell users, kör sync för att synca till db, retunerar sedan tabllen till db.js 
     const users = sequelize.define('users', {
         userId: {
             primaryKey: true,
@@ -22,18 +22,18 @@ function users(sequelize, DataTypes){  // funk  skapa tabell users, kör sync f�
         },
 
         isAdmin: {
-            type: DataTypes.BOOLEAN 
+            type: DataTypes.BOOLEAN
         },
 
     })
 
     sequelize.sync()
-   return users
+    return users
 }
 
 
-function adverts(sequelize, DataTypes){
-    const adverts = sequelize.define('adverts' , {
+function adverts(sequelize, DataTypes) {
+    const adverts = sequelize.define('adverts', {
         advertId: {
             primaryKey: true,
             type: DataTypes.INTEGER,
@@ -62,7 +62,7 @@ function adverts(sequelize, DataTypes){
     return adverts
 }
 
-function photos(sequelize, DataTypes){
+function photos(sequelize, DataTypes) {
     const photos = sequelize.define('photo', {
         photoId: {
             primaryKey: true,
@@ -86,4 +86,4 @@ function photos(sequelize, DataTypes){
     return photos
 }
 
-module.exports = {users,adverts,photos} //  <- funk inte vari.
+module.exports = { users, adverts, photos } //  <- funk inte vari.

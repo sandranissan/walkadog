@@ -1,12 +1,12 @@
 
-module.exports = function ({ accountRepository, accountValidator, hashManager  }) {
+module.exports = function ({ accountRepository, accountValidator, hashManager }) {
 
 	return {
-		getAllAccounts(callback){
+		getAllAccounts(callback) {
 			accountRepository.getAllAccounts(callback)
 		},
 
-		createAccount(newUser, callback){
+		createAccount(newUser, callback) {
 			hashPassword = hashManager.getHashPassword(newUser.userPassword)
 			newUser.userPassword = hashPassword
 			accountValidator.getErrorsNewAccount(newUser, callback)  
@@ -14,22 +14,22 @@ module.exports = function ({ accountRepository, accountValidator, hashManager  }
 		},
 		logInCredentials(knownUser, callback){ 
 
-			accountRepository.logInCredentials(knownUser, function(errors ,userPlainTextPassword,userCredentials) { 
-				console.log("yyyyyy",userCredentials)
-				if (!errors){
-					console.log(errors , "HAHAH") 
-				} else{ 
+			accountRepository.logInCredentials(knownUser, function (errors, userPlainTextPassword, userCredentials) {
+				console.log("yyyyyy", userCredentials)
+				if (!errors) {
+					console.log(errors, "HAHAH")
+				} else {
 					console.log("GUUUUUUUUUUD")
-					hashManager.comparedPassword(userPlainTextPassword, userCredentials.userPassword,function(result){
-						if(result){
-							callback([],userCredentials)
-						}else {
+					hashManager.comparedPassword(userPlainTextPassword, userCredentials.userPassword, function (result) {
+						if (result) {
+							callback([], userCredentials)
+						} else {
 							callback(["wrong username or password"], null)
 						}
-					})   
+					})
 
 				}
-			 
+
 			})
 		} 
    
@@ -37,5 +37,5 @@ module.exports = function ({ accountRepository, accountValidator, hashManager  }
 		  
 	}
 
-} 
+}
 

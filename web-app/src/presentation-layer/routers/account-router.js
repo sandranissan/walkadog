@@ -53,7 +53,7 @@ module.exports = function createAccount_router({ accountManager }) {
                 console.log(request.session)
                 console.log("log in funkade")
                 response.redirect("/adverts")
-            }
+            } 
         })
 
     })
