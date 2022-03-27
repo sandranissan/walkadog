@@ -38,6 +38,7 @@ module.exports = function createAdvert_router({ advertManager }) {
                 response.render("start.hbs")
             }
             else {
+                console.log(advert)
                 response.render('specificAdvert.hbs', advert)
             }
 
@@ -68,10 +69,12 @@ module.exports = function createAdvert_router({ advertManager }) {
             }
         })
         console.log(photoObject)
+        console.log("request.session.userId")
+        console.log(request.session.userId)
         const newAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,
-            contact: request.body.advertContact,
+            advertContact: request.body.advertContact,
             photoDescription: request.body.photoDescription,
             photoPath: photoName,
             userId: request.session.userId

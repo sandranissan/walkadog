@@ -54,7 +54,7 @@ function adverts(sequelize, DataTypes) {
         contact: {
             type: DataTypes.TEXT, // kan vara INT också
             allowNull: false
-        },
+        }
 
 
     })
@@ -73,7 +73,7 @@ function photos(sequelize, DataTypes) {
 
         nameOfFile: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
         },
 
         photoDescription: {

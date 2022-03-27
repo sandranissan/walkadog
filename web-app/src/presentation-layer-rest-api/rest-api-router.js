@@ -192,17 +192,19 @@ module.exports = function ({ accountManager, advertManager }) {
         const newAdvert = {
             advertName: request.body.advertName,
             advertDescription: request.body.advertDescription,
-            advertContact: request.body.contact,
+            advertContact: request.body.advertContact, //contact
             userId: request.body.userInfo.userId
-
         }
-
+        console.log("hehehehhehe",request.body)
+        console.log(newAdvert)
         advertManager.createAdvert(newAdvert, function (errors, advert){
             if(errors.length > 0){
                 response.status(400).json(errors)
             } else {
+                console.log("-------------------")
+                console.log(advert)
                 response.setHeader("Location", "/" + advert)
-                response.status(201).json({
+                response.status(201).json({ 
                     advert
                 })
             }

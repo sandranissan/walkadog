@@ -17,6 +17,8 @@ module.exports = function createAdvert_router({ advertRepository }) {
         getErrorsNewAdvert(newAdvert, callback) {
 
             const errors = []
+            console.log("*************")
+            console.log(newAdvert)
         
             if (!newAdvert.hasOwnProperty("advertName")) { // ??
                 errors.push("advertNameMissing")
@@ -28,19 +30,18 @@ module.exports = function createAdvert_router({ advertRepository }) {
             if (MAX_TITLE_LENGTH < newAdvert.advertName.length) {
                 errors.push("TitleTooLong")
             }
-
+ 
             if(errors.length > 0){
                 callback( errors, [])
             }
-            advertRepository.createAdvert(newAdvert, function(errors, newAdvert){
-        
+            advertRepository.createAdvert(newAdvert, function(errors, createdAdvert){
                 if(errors.length > 0) {
-                    console.log("error!!!!!!!!!")
-                    callback(errors, null)
+                    console.log(errors)
+                    callback([errors], null)
                 }
                 else {
                     console.log("callback i advertValidator")
-                    callback(errors, newAdvert)
+                    callback([], createdAdvert)
         
                 }
         

@@ -16,7 +16,7 @@ db.photos = require("./sequelize-model").photos(sequelize, Sequelize)
 //console.log(sequelize.module.adverts)
 
 db.photos.belongsTo(db.adverts, { foreignKey: 'advert_Id', onDelete: 'CASCADE', hooks: true }) // FK 'advertId'??
-//db.adverts.belongsTo(db.users, {foreignKey: 'user_Id'}) //FK??? 'userId'
+db.adverts.belongsTo(db.users, {foreignKey: 'user_Id'}) //FK??? 'userId'
 
 
 module.exports = db  

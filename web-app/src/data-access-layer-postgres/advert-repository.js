@@ -1,3 +1,4 @@
+const { response } = require('express')
 const { adverts } = require('./db.js')
 const db = require('./db.js')
 const { photos } = require('./sequelize-model.js')
@@ -27,21 +28,87 @@ module.exports = function createPostgresAdvertRepository() {
                     console.log(error)
                     callback(['databaseError'], null)
                 })
+        },  
+        getAdvertById(advertId, callback) {
+            console.log("hämtar advert från id")
+            db.adverts.findAll({
+                where: {
+                    advertId: advertId
+                },
+                raw: true
+            }).then(advert => {
+                console.log("---------------")
+                console.log("hihihihohohoho ")
+                console.log(advert)
+                callback([], advert[0])
+            }).catch((error) => {
+                console.log(error)
+                callback(['databaseError'], null)
+            })
+        },
+        getAdvertsByUserId(userId, callback) {
+            console.log("hämtar advert från id aaaaaaa")
+            db.adverts.findAll({
+                where: {
+                    user_Id: userId
+                },
+                include: {
+                    model: db.users,
+                    as: 'user',
+                    required: false
+                },
+                raw: true,
+                nest: true
+            })
+                .then(adverts => {
+                    console.log("userId")
+                    console.log(adverts)
+                    callback([], adverts)
+                }).catch((error) => {
+                    console.log(error)
+                    callback([error], null)
+                })
         },
 
 
-        deleteAdvertById(advertId, callback) {   
-            console.log("innanför DELETE")  
-            try {
+        deleteAdvertById(advertId, callback) {
+            console.log("innanför DELETE")
             db.adverts.destroy({
                 where: {
-                    advert_Id: advertId
-                }   
+                    advertId: advertId
+                }, include: {
+                    model: db.photos,
+                    as: 'photo',
+                    required: false
+                },
+                
+                nest: true
             })
-            callback([])
-            } catch(error){
-                callback(error,null)
-            }
+                .then(results => {
+                    console.log("tror de gick bra")
+                    callback([], results)
+                })
+                .catch((error) => {
+                    console.log("tror de gick dåligt")
+                    callback(["databaseError"], null)
+                })
+        },
+
+        UpdateAdvertById(advertId, updatedAdvert, callback) {
+            db.adverts.update({
+                advertName: updatedAdvert.advertName,
+                advertDescription: updatedAdvert.advertDescription,
+                contact: updatedAdvert.contact,
+            },{ 
+                where: { advertId: advertId },
+            },
+            ).then(updatedAdvert =>
+                callback([], updatedAdvert)
+            ).catch((err) => {
+                console.log(err),
+                    console.log("error when updating advert with advertId " + advertId),
+                    callback([err], null)
+            })
         },
 
 
@@ -49,12 +116,14 @@ module.exports = function createPostgresAdvertRepository() {
             db.adverts.create({
                 advertName: newAdvert.advertName,
                 advertDescription: newAdvert.advertDescription,
-                contact: newAdvert.contact
+                contact: newAdvert.advertContact,
+                user_Id: newAdvert.userId
             }, {
                 fields: [ // fields ???
                     'advertName',
                     'advertDescription',
-                    'contact'
+                    'contact', 
+                    'user_Id'
                 ],
             }).then(createdAdvert => {
                 console.log("den skapades!")
@@ -63,7 +132,7 @@ module.exports = function createPostgresAdvertRepository() {
                     nameOfFile: newAdvert.photoPath,
                     advert_Id: createdAdvert.dataValues.advertId,
                     photoDescription: newAdvert.photoDescription
-
+ 
 
                 }).then(newPhoto => {
                     console.log("--------------")
@@ -76,7 +145,7 @@ module.exports = function createPostgresAdvertRepository() {
                     callback([], model)
 
                 }).catch((error) => {
-                    console.log("hejhejhallåååååå")
+                    console.log(error)
                     callback(error, null)
                 })
             }).catch((error) => {
@@ -85,8 +154,9 @@ module.exports = function createPostgresAdvertRepository() {
 
         },
 
+
         getSpecificAdvert(photoId, callback) {
-           // deleteAdvertById()
+            // deleteAdvertById()
             console.log("tagit bort ?????")
             db.photos.findAll({
                 where: {
@@ -113,3 +183,10 @@ module.exports = function createPostgresAdvertRepository() {
     }
 }
 
+//query????
+//fel namn??
+//user_id??
+//ordningen på callback
+
+//(length>0)-> []
+//(error)-> null

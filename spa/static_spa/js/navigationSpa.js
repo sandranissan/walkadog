@@ -110,7 +110,7 @@ function showPage(url){
 				const newAdvert = {
 					advertName: createAdvert_name,
 					advertDescription: createAdvert_description,
-					contact: createAdvert_contact,
+					advertContact: createAdvert_contact
 				}
                 fetchCreateAdvert(newAdvert)
                 
@@ -269,6 +269,7 @@ async function fetchAdvertPage(id) {
     document.querySelector('#advert-contact').innerText = advert.contact
 }
 async function fetchCreateAdvert(advert) {
+    console.log(advert)
 	const response = await fetch("http://localhost:3000/rest/adverts/create/" , {
 		method: "POST",
 		headers: {
